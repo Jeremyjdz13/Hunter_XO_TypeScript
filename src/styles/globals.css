@@ -1,0 +1,38 @@
+@font-face {
+  font-family: righteous;
+  src: url(./fonts/Righteous/Righteous-Regular.ttf);
+}
+
+@font-face {
+  font-family: anotherDanger;
+  src: url(./fonts//another_danger/AnotherDanger.otf);
+}
+
+@font-face {
+  font-family: anotherDangerSlanted;
+  src: url(./fonts//another_danger/AnotherDangerSlanted.otf);
+}
+
+html{
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'righteous', sans-serif;
+}
+
+body {
+  background-image: url(./images/darkforrest.jpg);
+  background-position: fixed;
+  background-size: cover;
+  background-repeat: repeat-y;
+  margin: 0;
+  padding: 0;
+  height: '100%';
+}
+
+.anotherDangerSlanted {
+  font-family: 'anotherDangerSlanted';
+}
+
+.anotherDanger {
+  font-family: 'anotherDanger';
+}
