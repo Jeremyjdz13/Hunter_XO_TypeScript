@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore'
 import { app } from '../config/firebase'
 import { characterTemplate } from '../components/characters/CharacterTemplate'
-import { CharacterContextProps, Character  } from './types/CharacterTypes'
+import { CharacterContextProps, Character, IdNameRankData  } from './types/CharacterTypes'
 
 const CharacterContext = React.createContext<CharacterContextProps | undefined>(undefined)
 
@@ -64,11 +64,18 @@ export function CharacterProvider({ children }: { children: ReactNode}) {
         // setSelectedCharacterIdEdit(undefined)
     }
 
+    function handleSelectedStat(stat: IdNameRankData): void {
+        // setShowModal(true)
+        // setSelectedStat(stat)
+        console.log(stat,"This was clicked")
+    }
+
     const characterContextValue: CharacterContextProps = {
         characters,
         loading,
         showCharacter,
-        handleCharacterSelect
+        handleCharacterSelect,
+        handleSelectedStat
     }
 
     return (

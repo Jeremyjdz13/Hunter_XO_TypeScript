@@ -29,11 +29,11 @@ export const statModalStyles: StatModalStyles = {
         gridTemplateColumns: "20% 10% 10% 60%"
     },
     title: {
-        color: 'hsl(0,100%,50%)',
+        color: "hsla(50, 66%, 80%, .8)",
         fontSize: '24px'
     },
     label: {
-        color: 'hsl(0,100%,50%)',
+        color: "hsla(50, 66%, 80%, .8)",
         fontWeight: 'bold'
     }
 

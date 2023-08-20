@@ -18,6 +18,7 @@ interface CharacterStyles {
     grid3: CSSProperties;
     grid4: CSSProperties;
     row: CSSProperties;
+    rank: CSSProperties;
 }
 
 export const characterStyles: CharacterStyles = {
@@ -25,7 +26,8 @@ export const characterStyles: CharacterStyles = {
         backgroundColor: "hsla(0, 100%, 0%, 0.7)",
         padding: '10px',
         borderRadius: '20px',
-        color: 'floralwhite',
+        color: "hsla(0, 0%, 100%, 0.7)",
+
     },
     box1: {
         display: 'grid',
@@ -67,16 +69,16 @@ export const characterStyles: CharacterStyles = {
         border: 'green solid 3px'
     },
     blackBorder: {
-        borderInline: "hsl(0, 100%, 0%) solid 1.5px",
+        borderInline: "hsla(0, 100%, 100%, 0.2) 1px solid",
         padding: '5px',
     },
     titles: {
-        color: 'hsl(0,100%,50%)',
+        color: "hsla(50, 66%, 80%, .8)",
         fontSize: '20px'
     },
     clickableTitles: {
-        color: 'hsla(0,100%,50%,.7)',
-        fontSize: '18px',
+        color: "hsla(0, 0%, 100%, 0.5)",
+        fontSize: '14px',
         cursor: 'pointer'
     },
     grid2: {
@@ -100,5 +102,9 @@ export const characterStyles: CharacterStyles = {
         paddingInline: '10px',
         paddingBlock: '5px'
     },
+    rank: {
+    color: 'hsl(30, 100%, 50%)',
+    fontSize: '18px'
+    }
       
 }

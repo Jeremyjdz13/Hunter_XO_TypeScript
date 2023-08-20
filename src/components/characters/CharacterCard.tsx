@@ -2,13 +2,14 @@ import React, { useRef } from 'react'
 import { CharacterCardProps, IdNameRankData, Character } from '../../api/types/CharacterTypes'
 import { useCharacter } from '../../api/CharacterContext'
 import CharacterStat from './CharacterStat'
-// import EditModal from '../Modal/EditModal'
-// import { useEdit } from '../../../contexts/EditContext'
 import StatLists from './StatLists'
 import StatModal from './modals/StatModal'
 import { characterStyles } from './styles/CharacterStyles'
 import { NPCDisplay } from './NPCDisplay'
 import Initiative from './initiative/Initiative'
+import Title from './Title'
+import ClickableTitle from './ClickableTitle'
+import Counters from './Counters'
 
 
 export default function CharacterCard({ character } : CharacterCardProps){
@@ -34,8 +35,9 @@ export default function CharacterCard({ character } : CharacterCardProps){
     const lethalCounter = character.lethalCounter
     const protoniumCounter = character.protoniumCounter
     const equipmentItems = character.equipmentItems
-    const protoniumAttribute = character.secondaryAttributes[5]
+    
     const spentProtonium = protoniumCounter[0]
+    const protoniumAttribute = character.secondaryAttributes[5]
     const searchProtoniumGenerator = merits.filter(item => (
             item.name.includes('Protonium Generator') || 
             item.name.includes(' protonium generator') || 
@@ -47,10 +49,6 @@ export default function CharacterCard({ character } : CharacterCardProps){
         )
     )
 
-
-     // const {handleCharacterSelectIdEdit, showDice, handleSetShowDice} = useCharacter()
-    // const { showModal } = useEdit()
-
     let protoniumGeneratorRank: number = 0
 
     if (!searchProtoniumGenerator) {
@@ -61,17 +59,18 @@ export default function CharacterCard({ character } : CharacterCardProps){
 
     function handleSpentProtonium(){
 
-        if (!protoniumGeneratorRank) {
-            protoniumGeneratorRank = 0
-        }
-
-        let totalPool = protoniumAttribute.rank + protoniumGeneratorRank
-        let protoniumCount = totalPool - spentProtonium.rank 
-
-        return protoniumCount
-    }   
+            if (!protoniumGeneratorRank) {
+                protoniumGeneratorRank = 0
+            }
     
-    function handleProtoniumGeneratorElement(searchProtoniumGenerator: IdNameRankData[]): JSX.Element {
+            let totalPool = protoniumAttribute.rank + protoniumGeneratorRank
+            let protoniumCount = totalPool - spentProtonium.rank 
+    
+            return protoniumCount
+        }   
+        
+    
+    function handleProtoniumGeneratorElement(): JSX.Element {
         if(protoniumGeneratorRank){
             return (
                 <div>
@@ -82,72 +81,38 @@ export default function CharacterCard({ character } : CharacterCardProps){
         }
         return <></>
     }
-
-    function createStatListsElements(
-        traits: IdNameRankData[], 
-        groupName: string, 
-        character: Character
-        ) {
-        return traits.map(trait => (
-            <StatLists key={trait.id} {...trait} groupName={groupName} character={character} />
-        ))
-    }
-
-    const bashingElement = createStatListsElements(bashingCounter, 'bashingCounter', character);
-    const lethalElement = createStatListsElements(lethalCounter, 'lethalCounter', character);
-    const protoniumElement = createStatListsElements(protoniumCounter, 'protoniumCounter', character);
-   
     
-    function handleBashingCount(bashingCounter: IdNameRankData[]): JSX.Element {
-        const counts: number[] = bashingCounter.map(b => b.rank)
-        const count = Math.min(Math.max(...counts), 10)
-        if(count >= 4 && count <= 5){
-            return <span>Slap fighting! -1</span>
-        } else if(count >= 6 && count <= 8){
-            return <span>No BITING! -3</span>
-        } else if(count === 9){
-            return <span>A.chil.les Heel! -5 </span>
-        }else if(count === 10){
-            return <span>Hello Darkness my old friend!</span>
-        }
-        else {
-            return <span>No Penalty</span>
-        }
-    }
-
-    function handleLethalCount(lethalCounter: IdNameRankData[]): JSX.Element {
-        const counts: number[] = lethalCounter.map(l => l.rank)
-        const count = Math.min(Math.max(...counts), 10)
-        if(count >= 3 && count <=4){
-            return <span>That really hurt! -1</span>
-        } else if(count >= 5 && count <= 6){
-            return <span>Is that blood?! -2</span>
-        } else if(count >= 7 && count <=8){
-            return <span>I ain't got time to bleed! -4</span>
-        }else if(count === 9){
-            return <span>To die or not to die? -6</span>
-        }else if(count === 10){
-            return <span>Let's weigh your sins!</span>
-        }else {
-            return <span>No Penalty</span>
-        }
-    }
 
     return (
         <div style={characterStyles.container}>
             <div key={id} style={characterStyles.box1}>
                 <div>
                     <div style={characterStyles.blackBorder}>
-                        <div style={characterStyles.titles}>Name</div>
-                        {name}
+                        <Title storedTitle='Name'/>
+                        <ClickableTitle
+                            id={id} 
+                            name={name}
+                            groupName='characterName'
+                            character={character}
+                        />
                     </div>
                     <div style={characterStyles.blackBorder}>
-                        <div style={characterStyles.titles}>Alias</div>
-                        {alias}
+                        <Title storedTitle='Alias'/>
+                        <ClickableTitle
+                            id={id} 
+                            name={alias}
+                            groupName='characterAlias'
+                            character={character}
+                         />
                     </div>
                     <div style={characterStyles.blackBorder}>
-                        <div style={characterStyles.titles}>Nature</div>
-                        {nature}
+                        <Title storedTitle='Nature'/>
+                        <ClickableTitle
+                            id={id} 
+                            name={nature}
+                            groupName='characterNature'
+                            character={character}
+                         />
                     </div>
                 </div>
                 <div style={characterStyles.blackBorder}>
@@ -157,25 +122,41 @@ export default function CharacterCard({ character } : CharacterCardProps){
                     />
                 </div>
                 <div style={characterStyles.blackBorder}>
-                    {bashingElement}
-                    {handleBashingCount(bashingCounter)}
+                    <Counters
+                         traits={bashingCounter}
+                         groupName='bashingCounter'
+                         groupTitle='Bashing'
+                         character={character}
+                    />
                 </div>
                 <div style={characterStyles.blackBorder}>
-                    {lethalElement}
-                    {handleLethalCount(lethalCounter)}
+                    <Counters
+                         traits={lethalCounter}
+                         groupName='lethalCounter'
+                         groupTitle='Lethal'
+                         character={character}
+                    />
                 </div>
                 <div style={characterStyles.blackBorder}>
+                    <Counters
+                         traits={protoniumCounter}
+                         groupName='protoniumCounter'
+                         groupTitle='Protonium'
+                         character={character}
+                    />
                     <div>
-                        <div>
-                            <div style={characterStyles.titles}>Max Protonium</div>
-                            <div>{protoniumAttribute.rank}</div>
-                        </div>
-                        {protoniumElement}
-                        {handleProtoniumGeneratorElement(searchProtoniumGenerator)}
+                        <StatLists
+                            key={protoniumAttribute.id}
+                            {...protoniumAttribute}
+                            groupName="secondaryAttributes"
+                            character={character}
+                        />
                     </div>
                     <div>
-                        <div style={characterStyles.titles}>Unused</div>
-                        {handleSpentProtonium()}
+                        {handleProtoniumGeneratorElement()}
+                    </div>
+                    <div>
+                        Total: {handleSpentProtonium()}
                     </div>
                 </div>
             </div>
@@ -265,17 +246,5 @@ export default function CharacterCard({ character } : CharacterCardProps){
                 />
             </div>           
         </div>
-            // {showModal && <EditModal character={character} />}
-            // <div className='success_roller_mWeb-container'>
-            //      {showDice && <SuccessRoller 
-            //                 primaryAttributes={primaryAttributes} 
-            //                 mentalSkills={mentalSkills}
-            //                 powers={powers}
-            //                 talismans={talismans}
-
-            //             />
-            //     }
-            // </div> 
-           
     )
 }

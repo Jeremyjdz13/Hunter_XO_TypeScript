@@ -21,7 +21,9 @@ export type Character = {
     bashingCounter: IdNameRankData[]
     lethalCounter: IdNameRankData[]
     equipmentItems: IdNameRankData[]
-} 
+} & {
+    [key: string]: IdNameRankData[]
+}
 
 export type IdNameRankData = {
     id: string
@@ -49,6 +51,7 @@ export interface CharacterContextProps {
     showCharacter: Character| undefined
     loading: boolean
     handleCharacterSelect: (id: string) => void
+    handleSelectedStat: (stat: IdNameRankData) => void
 } 
 
 export interface CharacterCardProps {

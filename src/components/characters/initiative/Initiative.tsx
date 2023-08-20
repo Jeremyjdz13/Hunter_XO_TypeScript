@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { InitiativeProps } from '../../../api/types/InitiativeTypes';
 import { characterStyles } from '../styles/CharacterStyles';
+import { initiativeStyles } from '../styles/InitiativeStyles';
 
 export default function Initiative({mentalSkills, intuition}: InitiativeProps) {
     const searchAlertness = mentalSkills.filter(item => (
@@ -34,16 +35,21 @@ export default function Initiative({mentalSkills, intuition}: InitiativeProps) {
      }
 
     return (
-         <div>
-            <div style={characterStyles.titles}>Initiative</div>  
-            <div>Intuition: {intuition.rank}</div>
-            <div>Alertness: {alertCount}</div>
-            <div>Bonus: {initiativeCount}</div>
-            <div>D10 result: {initiativeRoll.D10Roll}</div>
-            <button onClick={() => handleClickD10()}>      
-                D*10 
-            </button>
-             <div>{initiativeRoll.randomD10}</div>
+         <div style={initiativeStyles.container}>
+            <div style={initiativeStyles.title}>Initiative</div>  
+            <div>Intuition: <span style={initiativeStyles.rank}>{intuition.rank}</span></div>
+            <div>Alertness: <span style={initiativeStyles.rank}>{alertCount}</span></div>
+            <div>Bonus: <span style={initiativeStyles.rank}>{initiativeCount}</span></div>
+            <div>D10 result: <span style={initiativeStyles.rank}>{initiativeRoll.D10Roll}</span></div>
+            <div style={initiativeStyles.buttonContainer}>
+                <button 
+                    onClick={() => handleClickD10()}
+                    style={initiativeStyles.button}
+                >      
+                    D*10 
+                </button>
+                <div style={initiativeStyles.result}>{initiativeRoll.randomD10}</div>
+            </div>
         </div>
     )
 } 

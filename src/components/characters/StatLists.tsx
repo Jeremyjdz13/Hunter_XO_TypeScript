@@ -2,6 +2,7 @@ import React from 'react'
 import { characterStyles } from './styles/CharacterStyles'
 import { StatListProps } from '../../api/types/CharacterTypes'
 import { statModalStyles } from './styles/StatModalStyles'
+import ClickableTitle from './ClickableTitle'
 // import { useEdit } from '../../../../contexts/EditContext'
 
 export default function StatLists(props: StatListProps) {
@@ -16,16 +17,6 @@ export default function StatLists(props: StatListProps) {
     } = props
     
     // const { handleSetSelectedStat, handleSetCharacterStatGroupName } = useEdit()
-
-
-    function handleClick(e: { preventDefault: () => void }){
-        e.preventDefault() 
-       
-        // handleSetCharacterStatGroupName(groupName)
-        // const selectedStat = character?.[groupName].find(data => data.id === e.target.id)
-        // handleSetSelectedStat(selectedStat)
-        console.log("This was clicked")
-    }
 
     function handleRank(){
         if((rank === 10 && groupName === "powerStunts") || (rank === 5 && groupName === "spellbook")){
@@ -46,7 +37,7 @@ function handleNameRankDescriptionElement() {
 
     if (isSpecialGroup || isSpellbookGroup) {
         const extraElements = isSpellbookGroup ? (
-            <div>
+            <div style={characterStyles.clickableTitles}>
                 {handlePurchased()}
             </div>
         ) : (
@@ -55,15 +46,18 @@ function handleNameRankDescriptionElement() {
 
         return (
             <div style={statModalStyles[`dashboard_${isSpellbookGroup ? "4" : "3"}_grid`]}>
-                <div id={id} onClick={handleClick} style={characterStyles.clickableTitles}>
-                    {name}
-                </div>
-                <div>
+                <ClickableTitle 
+                    id={id} 
+                    name={name} 
+                    groupName={groupName} 
+                    character={character}
+                />
+                <div style={characterStyles.rank}>
                     {handleRank()}
                 </div>
                 
                 {extraElements}
-                <div>
+                <div style={characterStyles.clickableTitles}>
                     {description}
                 </div>
             </div>
@@ -72,10 +66,13 @@ function handleNameRankDescriptionElement() {
 
     return (
         <div style={characterStyles.grid2}>
-            <div id={id} onClick={handleClick} style={characterStyles.clickableTitles}>
-                {name}
-            </div>
-            <div>{rank}</div>
+            <ClickableTitle 
+                id={id} 
+                name={name} 
+                groupName={groupName} 
+                character={character}
+            />
+            <div style={characterStyles.rank}>{rank}</div>
         </div>
     );
 }
