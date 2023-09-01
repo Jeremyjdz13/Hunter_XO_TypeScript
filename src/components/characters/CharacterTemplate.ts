@@ -44,38 +44,41 @@ export const characterTemplate = {
                     rank: 3
                 }
             ],
-        secondaryAttributes:[
+        acclaim:[
                 {
                     id: uuidv4(),
                     name: 'Acclaim',             
                     rank: 0
-                },
+                }
+            ],
+        infamy: [
                 {
                     id: uuidv4(),
                     name: 'Infamy',             
                     rank: 0
-                }, 
-                {
-                    id: uuidv4(),
-                    name: 'Karma',             
-                    rank: 0
-                },
-                {
-                    id: uuidv4(),
-                    name: 'Experience',             
-                    rank: 0
-                },
-                {
-                    id: uuidv4(),
-                    name: 'Armor',             
-                    rank: 0
-                },
-                {
-                    id: uuidv4(),
-                    name: 'Protonium',             
-                    rank: 0
                 }
             ],
+        karma: [
+            {
+                id: uuidv4(),
+                name: 'Karma',             
+                rank: 0
+            },
+        ], 
+        experience: [
+            {
+                id: uuidv4(),
+                name: 'Experience',             
+                rank: 0
+            },
+        ],    
+        armor: [
+            {
+                id: uuidv4(),
+                name: 'Armor',             
+                rank: 0
+            }
+        ],
         combatSkills:[
                 {
                     id:uuidv4(),
@@ -158,24 +161,29 @@ export const characterTemplate = {
                 purchased: false
             }
         ],
-        protoniumCounter:[
+        protonium:[
                 {
                     id: uuidv4(),
                     name: 'Spent Protonium',
                     rank: 0,
-                }
-            ],
-        bashingCounter:[
+                },
                 {
                     id: uuidv4(),
-                    name: 'Bashing Count',
+                    name: 'Protonium',             
                     rank: 0
                 }
             ],
-        lethalCounter:[
+        bashing:[
                 {
                     id: uuidv4(),
-                    name: 'Lethal Count',
+                    name: 'Count',
+                    rank: 0
+                }
+            ],
+        lethal:[
+                {
+                    id: uuidv4(),
+                    name: 'Count',
                     rank: 0, 
                 }
             ],

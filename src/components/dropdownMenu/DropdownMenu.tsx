@@ -21,12 +21,12 @@ const DropdownMenu: React.FC<Props> = ({ menuItems, playerName = ''}) => {
       }
     return (
         <div style={dropdownMenuStyles.dropdown}>
-        <button style={dropdownMenuStyles.dropbtn}
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        >
+          <button style={dropdownMenuStyles.dropbtn}
+            onClick={handleClick}
+            onMouseEnter={handleMouseEnter}
+          >
             {playerName}
-        </button>
+          </button>
         <div style={{
           ...dropdownMenuStyles.dropdownContent,
           display: isContentVisible ? 'block' : 'none',

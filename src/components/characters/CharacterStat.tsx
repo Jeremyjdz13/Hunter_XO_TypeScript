@@ -48,7 +48,7 @@ function CharacterStat({ traits, groupName, character, groupTitle }: CharacterSt
     }
 
     return (
-        <div style={characterStyles.blackBorder}>
+        <div>
             <Title storedTitle={groupTitle} />
             {handleNameRankDescriptionElement()}
             {statList}

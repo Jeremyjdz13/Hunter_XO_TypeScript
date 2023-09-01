@@ -22,8 +22,10 @@ export type Character = {
     lethalCounter: IdNameRankData[]
     equipmentItems: IdNameRankData[]
 } & {
-    [key: string]: IdNameRankData[]
+    [key: string]: IdNameRankData
 }
+
+export type IdNameRankDataArray = IdNameRankData[]
 
 export type IdNameRankData = {
     id: string
@@ -46,7 +48,7 @@ export type GroupTitle = {
     groupTitle: string
 }
 
-export interface CharacterContextProps {
+export type CharacterContextProps = {
     characters: Character[] | undefined
     showCharacter: Character| undefined
     loading: boolean
@@ -54,23 +56,23 @@ export interface CharacterContextProps {
     handleSelectedStat: (stat: IdNameRankData) => void
 } 
 
-export interface CharacterCardProps {
+export type CharacterCardProps = {
     character: Character
 }
 
-export interface CharacterButtonProps {
+export type CharacterButtonProps = {
     character: Character
     key: string
 }
 
-export interface CharacterStatProps {
+export type CharacterStatProps = {
     traits: IdNameRankData[]
     groupName: string
     character: Character
     groupTitle: string
 }
 
-export interface StatListProps {
+export type StatListProps = {
     id: string
     name: string
     rank: number

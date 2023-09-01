@@ -15,7 +15,8 @@ export const initiativeStyles : InitiativeStyles = {
         color: "hsla(0, 0%, 100%, 0.7)",
         padding: '15px',
         border: 'hsl(30, 100%, 50%) solid 1px',
-        borderRadius: '20px'
+        borderRadius: '20px',
+        marginInline: '3px'
     },
     title: {
         color: "hsla(50, 66%, 80%, .8)",
@@ -41,7 +42,14 @@ export const initiativeStyles : InitiativeStyles = {
         
     },
     button: {
-        width: '50px',
+        backgroundColor: "hsl(30, 100%, 50%)",
+        border: 'hsl(30, 100%, 50%) solid 2px',
+        borderRadius: '5px',
+        color: 'hsla(0, 100%, 0%, 0.7)',
+        padding: '5px',
+        fontSize: '20px',
+        fontWeight: 'bolder',
+        width: '75px',
         height: '50px'
     }
 }

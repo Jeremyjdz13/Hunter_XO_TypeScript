@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { Character, CharacterContextProps, IdNameRankData } from "../../api/types/CharacterTypes"
+import { Character, CharacterContextProps, IdNameRankData, IdNameRankDataArray } from "../../api/types/CharacterTypes"
 import { characterStyles } from "./styles/CharacterStyles"
 import { useCharacter } from "../../api/CharacterContext"
 import EditStatModal from "./modals/EditStatModal"
+import DiceModal from "./modals/DiceModal"
 
 type ClickableTitleProps = {
     name: string
@@ -12,25 +13,18 @@ type ClickableTitleProps = {
 }
 export default function ClickableTitle({ name, id, groupName, character } : ClickableTitleProps) {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const statArray: IdNameRankData = character?.[groupName]
 
-    const { handleSelectedStat } = useCharacter() as CharacterContextProps
-
-    function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>){
-        e.preventDefault() 
-        // handleSetCharacterStatGroupName(groupName)
-        if(character[groupName]) {
-
-        const selectedStat = character[groupName].find((data: IdNameRankData ) => data.id === e.currentTarget.id)
-        console.log(id, "Left Click")
-        
-            if (selectedStat) {
-                handleSelectedStat(selectedStat)
-            }
-        
+    function handleDiceClickableTitles() {
+       
+        const stat = statArray.find(item => item.id === id)
+        if (stat) {
+            return <DiceModal 
+                    key={id}
+                    stat={stat}
+                    character={character}
+                />
         }
-
-
-        // console.log(groupName, "Left Click")
     }
 
     function handleContextMenu(e: { preventDefault: () => void}){
@@ -43,17 +37,24 @@ export default function ClickableTitle({ name, id, groupName, character } : Clic
     function handleCloseModal() {
         setIsModalOpen(false)
     }
-
     return (
         <div>
-            <div
-                id={id}
-                onClick={handleClick}
-                onContextMenu={handleContextMenu}
-                style={characterStyles.clickableTitles}
-            >
-                {name}
-            </div>
+            {
+                (
+                    groupName === 'primaryAttributes' ||
+                    groupName === 'powers' ||
+                    groupName === 'talismans'
+                ) ? handleDiceClickableTitles() : 
+                (
+                    <div
+                        id={id}
+                        onContextMenu={handleContextMenu}
+                        style={characterStyles.clickableTitles}
+                    >
+                        {name}
+                    </div>
+                )
+            }
             <EditStatModal 
                 storedTitle={name}
                 isOpen={isModalOpen}

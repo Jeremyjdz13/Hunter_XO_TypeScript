@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Title from "../Title";
 import EditStatForm from "../forms/EditStatForm";
 
-interface EditStatModalProps {
+type EditStatModalProps = {
     storedTitle: string
     isOpen: boolean
     onClose: () => void
@@ -14,10 +14,9 @@ export default function EditStatModal({
     onClose
 }: EditStatModalProps) {
 
-    const modalRef = useRef<HTMLDialogElement | undefined>()
+    const modalRef = useRef<HTMLDialogElement | null>(null)
 
     return (
-  
         <dialog open={isOpen} ref={modalRef}>
             <button onClick={onClose}>close</button>
             <Title storedTitle={storedTitle} />

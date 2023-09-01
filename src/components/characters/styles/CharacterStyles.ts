@@ -11,7 +11,7 @@ interface CharacterStyles {
     box7: CSSProperties;
     box8: CSSProperties;
     green: CSSProperties;
-    blackBorder: CSSProperties;
+    orangeBottomBorder: CSSProperties;
     titles: CSSProperties;
     clickableTitles: CSSProperties;
     grid2: CSSProperties;
@@ -19,6 +19,7 @@ interface CharacterStyles {
     grid4: CSSProperties;
     row: CSSProperties;
     rank: CSSProperties;
+    text: CSSProperties
 }
 
 export const characterStyles: CharacterStyles = {
@@ -26,18 +27,18 @@ export const characterStyles: CharacterStyles = {
         backgroundColor: "hsla(0, 100%, 0%, 0.7)",
         padding: '10px',
         borderRadius: '20px',
-        color: "hsla(0, 0%, 100%, 0.7)",
-
+        maxWidth: '1200px',
+        height: '100vh',
+        margin: 'auto'
     },
     box1: {
         display: 'grid',
-        gridTemplateColumns: '20% 20% 20% 20% 20%',
+        gridTemplateColumns: '25% 25% 25% 25%',
         paddingBlock: '5px',
     },
     box2: {
         display: 'grid',
-        gridTemplateColumns: '15% 15% 20% 20% 30%',
-        borderTop: "hsl(0, 100%, 0%) solid 3px",
+        gridTemplateColumns: '25% 25% 25% 25%',
         paddingBlock: '5px',
     },
     box3: {
@@ -68,9 +69,9 @@ export const characterStyles: CharacterStyles = {
     green: {
         border: 'green solid 3px'
     },
-    blackBorder: {
-        borderInline: "hsla(0, 100%, 100%, 0.2) 1px solid",
-        padding: '5px',
+    orangeBottomBorder: {
+        borderBottom: "hsl(30, 100%, 50%) solid 1px",
+        marginBlock: '5px',
     },
     titles: {
         color: "hsla(50, 66%, 80%, .8)",
@@ -105,6 +106,10 @@ export const characterStyles: CharacterStyles = {
     rank: {
     color: 'hsl(30, 100%, 50%)',
     fontSize: '18px'
+    },
+    text: {
+        color: 'hsl(30, 100%, 50%)',
+        fontSize: '14px'
     }
       
 }

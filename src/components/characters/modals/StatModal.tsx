@@ -18,26 +18,43 @@ export default function StatModal({ groupTitle, traits, groupName, character  }:
         <div>
             <button
                 onClick={handleOpenModal}
-            >{groupTitle}</button>
+                style={statModalStyles.buttonOpen}
+            >
+                {groupTitle}
+            </button>
             <dialog style={statModalStyles.container} ref={modalRef} >
                 <button 
                     onClick={handleCloseModal}
-                >Close</button>
+                    style={statModalStyles.buttonClose}
+                >
+                    Close
+                </button>
                 <div>
+                    {(groupName === "powers") ? 
+                        <CharacterStat
+                            groupTitle="Talismans"
+                            traits={character.talismans}
+                            groupName="talismans" 
+                            character={character}
+                        />
+                        :
+                        <></>
+                    }
                     <CharacterStat
                         groupTitle={groupTitle}
                         groupName={groupName}
                         traits={traits}
                         character={character}
                     />
-                    {groupName === "powers" && (
+                    {(groupName === "powers") ? 
                         <CharacterStat
                             groupTitle="Power Stunts"
                             traits={character.powerStunts}
                             groupName="powerStunts" 
                             character={character}
                         />
-                        )
+                        :
+                        <></>
                     }
                 
                 </div>

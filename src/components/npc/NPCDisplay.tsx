@@ -1,8 +1,8 @@
-import { characterStyles } from "./styles/CharacterStyles";
+import { characterStyles } from "../characters/styles/CharacterStyles";
 
 export function NPCDisplay() {
     return (
-        <div style={characterStyles.blackBorder}>
+        <div>
             <div style={characterStyles.titles}>NPC Panel</div>
         </div>
     )

@@ -71,9 +71,6 @@ export default function Header() {
       <div style={headerStyles.containerLeft}>
         Search Field
       </div>
-        <div style={headerStyles.containerCenter}>
-          <Chat />
-        </div>
         <div style={headerStyles.containerRight}>
          {currentUser ? 
           <DropdownMenu menuItems={menuItems} playerName={currentUser.displayName ?? undefined}/>: 

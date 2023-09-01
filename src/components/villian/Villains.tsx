@@ -1,9 +1,9 @@
 import { characterStyles } from "../characters/styles/CharacterStyles";
 
-export function Chat() {
+export function Villains() {
     return (
-        <div style={characterStyles.titles}>
-            Chat
+        <div>
+            <div style={characterStyles.titles}>Villains</div>
         </div>
     )
 }

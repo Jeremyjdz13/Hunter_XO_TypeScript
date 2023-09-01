@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { InitiativeProps } from '../../../api/types/InitiativeTypes';
-import { characterStyles } from '../styles/CharacterStyles';
 import { initiativeStyles } from '../styles/InitiativeStyles';
 
 export default function Initiative({mentalSkills, intuition}: InitiativeProps) {
