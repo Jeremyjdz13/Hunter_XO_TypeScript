@@ -1,40 +1,39 @@
 import React, { useRef } from 'react'
-import { CharacterCardProps, IdNameRankData, Character } from '../../api/types/CharacterTypes'
+import { CharacterCardProps, IdNameRankData, Character } from './CharacterTypes'
 import { useCharacter } from '../../api/CharacterContext'
-import CharacterStat from './CharacterStat'
-import StatLists from './StatLists'
+import CharacterStat from './components/CharacterStat'
 import StatModal from './modals/StatModal'
 import { characterStyles } from './styles/CharacterStyles'
 import { NPCDisplay } from '../npc/NPCDisplay'
 import Initiative from './initiative/Initiative'
-import Title from './Title'
-import ClickableTitle from './ClickableTitle'
-import Counters from './Counters'
+import Title from './components/Title'
+import ClickableTitle from './components/ClickableLabel'
 import { Chat } from '../chat/Chat'
 import { Villains } from '../villian/Villains'
 import { initiativeStyles } from './styles/InitiativeStyles'
+import Health from './counters/Health'
+import Label from './components/Label'
 
 
-export default function CharacterCard({ character } : CharacterCardProps){
+export default function Character({ character } : CharacterCardProps){
   
     const id = character.id
     const name = character.name
     const alias = character.alias
     const nature = character.nature
-    const primaryAttributes = character.primaryAttributes
-    const secondaryAttributes = character.secondaryAttributes
-    const combatSkills = character.combatSkills
-    const physicalSkills = character.physicalSkills
-    const professionalSkills = character.professionalSkills
-    const mentalSkills = character.mentalSkills
+    const coreAbilities = character.coreAbilities
+    const combat = character.combat
+    const physical = character.physical
+    const professional = character.professional
+    const mental = character.mental
     const backgrounds = character.backgrounds
     const merits = character.merits
     const flaws = character.flaws
     const powers = character.powers
     const spellbook = character.spellbook
-    const bashingCounter = character.bashingCounter
-    const lethalCounter = character.lethalCounter
-    const equipmentItems = character.equipmentItems
+    const bashing = character.bashing
+    const lethal = character.lethal
+    const inventory = character.inventory
    
 
     return (
@@ -70,20 +69,20 @@ export default function CharacterCard({ character } : CharacterCardProps){
             </div>
             <div style={characterStyles.box3}>
                 <Initiative 
-                    intuition={primaryAttributes[4]}
-                    mentalSkills={mentalSkills} 
+                    intuition={coreAbilities[4]}
+                    mental={mental} 
                 />
                 <div style={initiativeStyles.container}>
-                    <Counters
-                        traits={bashingCounter}
+                    <Health
+                        traits={bashing}
                         groupName='bashingCounter'
                         groupTitle='Bashing'
                         character={character}
                     />
                 </div>
                 <div style={initiativeStyles.container}>
-                    <Counters
-                        traits={lethalCounter}
+                    <Health
+                        traits={lethal}
                         groupName='lethalCounter'
                         groupTitle='Lethal'
                         character={character}
@@ -91,23 +90,20 @@ export default function CharacterCard({ character } : CharacterCardProps){
                 </div>
                 <div style={initiativeStyles.container}>
                     
-                   <h2>Experience</h2>
+                   <Label storedLabel='Experience'/>
 
                 </div>
             </div>
             <div style={{...characterStyles.box2, ...characterStyles.orangeBottomBorder}}>
                 <CharacterStat 
-                    groupTitle='Primary'
-                    groupName='primaryAttributes'
-                    traits={primaryAttributes}
+                    groupTitle='Core Abilities'
+                    groupName='coreAbilities'
+                    traits={coreAbilities}
                     character={character}
                 />
-                <CharacterStat 
-                    groupTitle='Secondary'
-                    groupName='secondaryAttributes'
-                    traits={secondaryAttributes}
-                    character={character}
-                />
+                <div>
+
+                </div>
                 <CharacterStat 
                     groupTitle='Merits'
                     groupName='merits'
@@ -124,26 +120,26 @@ export default function CharacterCard({ character } : CharacterCardProps){
             <div style={characterStyles.box3}>
                 <CharacterStat
                     groupTitle='Combat'
-                    groupName='combatSkills'
-                    traits={combatSkills}
+                    groupName='combat'
+                    traits={combat}
                     character={character} 
                 />
                 <CharacterStat
                     groupTitle='Physical'
-                    groupName='physicalSkills'
-                    traits={physicalSkills}
+                    groupName='physical'
+                    traits={physical}
                     character={character} 
                 />
                 <CharacterStat
                     groupTitle='Professional'
-                    groupName='professionalSkills'
-                    traits={professionalSkills}
+                    groupName='professional'
+                    traits={professional}
                     character={character} 
                 />
                 <CharacterStat
                     groupTitle='Mental'
-                    groupName='mentalSkills'
-                    traits={mentalSkills}
+                    groupName='mental'
+                    traits={mental}
                     character={character} 
                 />   
             </div>
@@ -168,8 +164,8 @@ export default function CharacterCard({ character } : CharacterCardProps){
                 />
                 <StatModal 
                     groupTitle={"Inventory"} 
-                    groupName={"equipmentItems"}
-                    traits={equipmentItems}
+                    groupName={"inventory"}
+                    traits={inventory}
                     character={character}
                 />
             </div>           

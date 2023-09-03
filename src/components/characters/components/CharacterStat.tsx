@@ -2,14 +2,14 @@ import React from "react";
 import StatLists from "./StatLists";
 import Label from "./Label";
 import Title from "./Title";
-import { CharacterStatProps, IdNameRankData } from "../../api/types/CharacterTypes";
-import { characterStyles } from "./styles/CharacterStyles";
-import { statModalStyles } from "./styles/StatModalStyles";
+import { CharacterStatProps, IdNameRankData } from "../CharacterTypes";
+import { characterStyles } from "../styles/CharacterStyles";
+import { statModalStyles } from "../styles/StatModalStyles";
 
 
 function CharacterStat({ traits, groupName, character, groupTitle }: CharacterStatProps){
 
-    const statList = traits.map((trait: IdNameRankData) => (
+    const statList = traits?.map((trait: IdNameRankData) => (
         <StatLists
             key={trait.id} 
             {...trait} 
@@ -19,7 +19,7 @@ function CharacterStat({ traits, groupName, character, groupTitle }: CharacterSt
     ))
 
     function handleNameRankDescriptionElement() {
-        const isSpecialGroup = ["backgrounds", "talismans", "equipmentItems", "powerStunts"].includes(groupName);
+        const isSpecialGroup = ["backgrounds", "talismans", "inventory", "powerStunts"].includes(groupName);
         const isSpellbookGroup = groupName === "spellbook";
     
         if (isSpecialGroup) {

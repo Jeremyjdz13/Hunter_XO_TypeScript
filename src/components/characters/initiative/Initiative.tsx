@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { InitiativeProps } from '../../../api/types/InitiativeTypes';
 import { initiativeStyles } from '../styles/InitiativeStyles';
 
-export default function Initiative({mentalSkills, intuition}: InitiativeProps) {
-    const searchAlertness = mentalSkills.filter(item => (
+export default function Initiative({mental, intuition}: InitiativeProps) {
+
+    const searchAlertness = mental.filter(item => (
         item.name.includes('Alertness') || item.name.includes('alertness')
     ));
+    
     const [initiativeRoll, setInitiativeRoll] = useState({randomD10: 0, D10Roll: 0})
     let alertCount = 0
    

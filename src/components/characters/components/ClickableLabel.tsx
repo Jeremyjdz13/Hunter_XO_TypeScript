@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { Character, CharacterContextProps, IdNameRankData, IdNameRankDataArray } from "../../api/types/CharacterTypes"
-import { characterStyles } from "./styles/CharacterStyles"
-import { useCharacter } from "../../api/CharacterContext"
-import EditStatModal from "./modals/EditStatModal"
-import DiceModal from "./modals/DiceModal"
+import { Character, CharacterContextProps, IdNameRankData, IdNameRankDataArray } from "../CharacterTypes"
+import { characterStyles } from "../styles/CharacterStyles"
+import { useCharacter } from "../../../api/CharacterContext"
+import EditStatModal from "../modals/EditStatModal"
+import DiceModal from "../modals/DiceModal"
 
 type ClickableTitleProps = {
     name: string
@@ -11,7 +11,7 @@ type ClickableTitleProps = {
     groupName: string
     character: Character
 }
-export default function ClickableTitle({ name, id, groupName, character } : ClickableTitleProps) {
+export default function ClickableLabel({ name, id, groupName, character } : ClickableTitleProps) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const statArray: IdNameRankData = character?.[groupName]
 
@@ -41,7 +41,7 @@ export default function ClickableTitle({ name, id, groupName, character } : Clic
         <div>
             {
                 (
-                    groupName === 'primaryAttributes' ||
+                    groupName === 'coreAbilities' ||
                     groupName === 'powers' ||
                     groupName === 'talismans'
                 ) ? handleDiceClickableTitles() : 

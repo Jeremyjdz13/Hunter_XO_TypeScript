@@ -1,8 +1,8 @@
 import React from 'react'
-import { useCharacter } from '../../api/CharacterContext'
-import { characterStyles } from './styles/CharacterStyles'
-import { characterButtonStyles } from './styles/CharacterButtonStyles'
-import { CharacterButtonProps, CharacterContextProps } from '../../api/types/CharacterTypes'
+import { useCharacter } from '../../../api/CharacterContext'
+import { characterStyles } from '../styles/CharacterStyles'
+import { characterButtonStyles } from '../styles/CharacterButtonStyles'
+import { CharacterButtonProps, CharacterContextProps } from '../CharacterTypes'
 
 export default function CharacterCardButton({ character }: CharacterButtonProps){
     const id = character.id

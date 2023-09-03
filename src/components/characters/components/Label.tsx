@@ -1,4 +1,4 @@
-import { statModalStyles } from "./styles/StatModalStyles"
+import { statModalStyles } from "../styles/StatModalStyles"
 
 type LabelProp = {
     storedLabel: string;

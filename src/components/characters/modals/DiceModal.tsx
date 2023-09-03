@@ -1,9 +1,9 @@
-import { IdNameRankData } from "../../../api/types/CharacterTypes"
+import { IdNameRankData } from "../CharacterTypes"
 import { useRef, useState } from "react"
 import { diceModalStyles } from "../styles/DiceModalStyles"
 import EditStatModal from "./EditStatModal"
 import DiceDropDownMenu from "./DiceDropDownMenu"
-import StatLists from "../StatLists"
+import StatLists from "../components/StatLists"
 import { initiativeStyles } from "../styles/InitiativeStyles"
 import { characterStyles } from "../styles/CharacterStyles"
 
@@ -27,12 +27,12 @@ export default function DiceModal(
     const [d100, setD100] = useState({successTotal: 0, D100Roll: 0, score: ''})
     // const [powerRank, setPowerRank] = useState('None Selected')
     // const [count, setCount] = useState(0)  
-    const combatSkills = character?.combatSkills
-    const physicalSkills = character?.physicalSkills
-    const professionalSkills = character?.professionalSkills
-    const mentalSkills = character?.mentalSkills
-    const baseProtonium = character?.secondaryAttributes[5]
-    const spentProtonium = character?.protoniumCounter[0]
+    const combat = character?.combat
+    const physical = character?.physical
+    const professional = character?.professional
+    const mental = character?.mental
+    const baseProtonium = character?.protonium[1]
+    const spentProtonium = character?.protonium[0]
     const protoniumGenerator = character?.merits?.filter(item => (
         item.name.includes('Protonium Generator') || 
         item.name.includes(' protonium generator') || 
@@ -45,8 +45,8 @@ export default function DiceModal(
     )
 )
 
-    console.log(baseProtonium, "protonium")
-    console.log(spentProtonium, "Spent Proton")
+    // console.log(baseProtonium, "protonium")
+    // console.log(spentProtonium, "Spent Proton")
     console.log(protoniumGenerator[0], "Protonium Gen")
 
 
@@ -321,7 +321,7 @@ export default function DiceModal(
     }
 
  
-    const totalPool = baseProtonium.rank + protoniumGenerator.rank
+    const totalPool = baseProtonium.rank + protoniumGenerator?.rank
     const protoniumCount = totalPool - spentProtonium.rank 
 
 
@@ -330,7 +330,7 @@ export default function DiceModal(
             return (
                 <div style={characterStyles.grid2}>
                     <div>Generator</div>
-                    <div style={characterStyles.rank}>{protoniumGenerator[0].rank}</div>
+                    <div style={characterStyles.rank}>{protoniumGenerator[0]?.rank}</div>
                 </div>
             )
         }
@@ -367,19 +367,19 @@ export default function DiceModal(
                 <div>
                     <DiceDropDownMenu
                         skillType="Combat"
-                        skills={combatSkills}
+                        skills={combat}
                     />
                      <DiceDropDownMenu
                         skillType="Physical"
-                        skills={physicalSkills}
+                        skills={physical}
                     />
                      <DiceDropDownMenu
                         skillType="Professional"
-                        skills={professionalSkills}
+                        skills={professional}
                     />
                      <DiceDropDownMenu
                         skillType="Mental"
-                        skills={mentalSkills}
+                        skills={mental}
                     />
                 </div>
                 <div style={initiativeStyles.container}>

@@ -3,8 +3,8 @@ import { useAuth } from './AuthContext'
 import { v4 as uuidv4 } from 'uuid'
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore'
 import { app } from '../config/firebase'
-import { characterTemplate } from '../components/characters/CharacterTemplate'
-import { CharacterContextProps, Character, IdNameRankData  } from './types/CharacterTypes'
+import { characterTemplate } from '../components/characters/templates/CharacterTemplate'
+import { CharacterContextProps, Character, IdNameRankData  } from '../components/characters/CharacterTypes'
 
 const CharacterContext = React.createContext<CharacterContextProps | undefined>(undefined)
 
@@ -40,14 +40,21 @@ export function CharacterProvider({ children }: { children: ReactNode}) {
         getDocs(charactersRef)
             .then((querySnapshot) => {
                 const charactersData = querySnapshot.docs.map((doc) => doc.data() as Character);
+                console.log(charactersData, "charactersData")
                 if(charactersData.length === 0){
-                    console.log(charactersData, "not found")
-                setDoc(doc(charactersRef), characterTemplate)
+                
+                console.log(charactersData, "not found")
+                setDoc(doc(charactersRef), characterTemplate).then(() => {
+                    console.log("Document successfully written!");
+                    setCharacters([characterTemplate]);
+                    console.log("Adding a character")
+                })
                     .catch((error) => 
                         console.log('Failed to initialize default characters', error)
                     )
                 } else {
-                    setCharacters(charactersData) 
+                    setCharacters(charactersData)
+                    console.log("Adding a character")
                 }
                 setLoading(false);        
             })

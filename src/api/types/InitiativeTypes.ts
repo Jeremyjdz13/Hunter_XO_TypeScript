@@ -1,6 +1,6 @@
-import { IdNameRankData } from "./CharacterTypes";
+import { IdNameRankData } from "../../components/characters/CharacterTypes";
 
 export interface InitiativeProps {
-    mentalSkills: IdNameRankData[]
+    mental: IdNameRankData[]
     intuition: IdNameRankData
 }

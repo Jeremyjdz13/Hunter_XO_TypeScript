@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IdNameRankData } from "../../../api/types/CharacterTypes"
+import { IdNameRankData } from "../CharacterTypes"
 import { dropdownMenuStyles } from "../../dropdownMenu/DropdownStyles"
 
 type DiceDropDownMenuProps = {
@@ -32,7 +32,8 @@ export default function DiceDropDownMenu({ skillType, skills }: DiceDropDownMenu
             >
                 {skillType}
             </button>
-            <div style={{
+            <div 
+                style={{
                 ...dropdownMenuStyles.dropdownContent,
                 display: isContentVisible ? 'block' : 'none',
             }}

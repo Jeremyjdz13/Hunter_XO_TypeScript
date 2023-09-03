@@ -1,6 +1,6 @@
 import { useRef } from "react"
-import CharacterStat from "../CharacterStat"
-import { CharacterStatProps } from "../../../api/types/CharacterTypes"
+import CharacterStat from "../components/CharacterStat"
+import { CharacterStatProps } from "../CharacterTypes"
 import { statModalStyles } from "../styles/StatModalStyles"
 
 export default function StatModal({ groupTitle, traits, groupName, character  }: CharacterStatProps) {

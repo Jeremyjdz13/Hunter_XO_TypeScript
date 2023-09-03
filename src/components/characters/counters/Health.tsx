@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { Character, IdNameRankData } from "../../api/types/CharacterTypes"
-import CharacterStat from "./CharacterStat"
-import { characterStyles } from "./styles/CharacterStyles"
+import { Character, IdNameRankData } from "../CharacterTypes"
+import CharacterStat from "../components/CharacterStat"
+import { characterStyles } from "../styles/CharacterStyles"
 
 type CountersProps = {
     traits: IdNameRankData[]
@@ -10,7 +10,7 @@ type CountersProps = {
     character: Character
 } 
 
-export default function Counters(
+export default function Health(
     {
         traits, 
         groupName,

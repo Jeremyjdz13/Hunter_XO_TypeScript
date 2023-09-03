@@ -31,7 +31,7 @@ export type IdNameRankData = {
     id: string
     name: string
     rank: number
-} & Description & Purchased
+} & Description & Purchased & Traits
 
 export type Description = {
     description: string
@@ -47,10 +47,13 @@ export type GroupName = {
 export type GroupTitle = {
     groupTitle: string
 }
+export type Traits = { 
+    traits: IdNameRankData[]
+}
 
 export type CharacterContextProps = {
     characters: Character[] | undefined
-    showCharacter: Character| undefined
+    showCharacter: Character | undefined
     loading: boolean
     handleCharacterSelect: (id: string) => void
     handleSelectedStat: (stat: IdNameRankData) => void
@@ -66,7 +69,7 @@ export type CharacterButtonProps = {
 }
 
 export type CharacterStatProps = {
-    traits: IdNameRankData[]
+    traits: Traits
     groupName: string
     character: Character
     groupTitle: string
