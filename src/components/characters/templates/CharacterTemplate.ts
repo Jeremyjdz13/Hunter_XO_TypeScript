@@ -45,20 +45,6 @@ export const characterTemplate = {
                     rank: 3
                 }
             ],
-        acclaim:[
-                {
-                    id: uuidv4(),
-                    name: 'Acclaim',             
-                    rank: 0
-                }
-            ],
-        infamy: [
-                {
-                    id: uuidv4(),
-                    name: 'Infamy',             
-                    rank: 0
-                }
-            ],
         karma: [
             {
                 id: uuidv4(),
@@ -120,21 +106,24 @@ export const characterTemplate = {
                     name: 'Ring of Power',
                     rank: 1,
                     protoniumGenerator: true,
-                    talisman: false
+                    talisman: false,
+                    description: 'What does this Ring of Power do?'
                 },
                 {
                     id: uuidv4(),
                     name: 'Invisibility Cloak',
                     rank: 1,
                     protoniumGenerator: false,
-                    talisman: true
+                    talisman: true,
+                    description: 'What does this Invisibility Cloak do?'
                 }
             ],
         flaws:[
                 {
                     id: uuidv4(),
-                    name: 'Flaw',
-                    rank: 1
+                    name: 'Bad breath',
+                    rank: 1,
+                    description: 'A fiber of chicken is lodged between your lateral and central incisor and has become wrought with bacteria pooping in your mouth.'
                 }
             ],
         powers:[
@@ -142,6 +131,7 @@ export const characterTemplate = {
                     id: uuidv4(),
                     name: 'Super Power',
                     rank: 1,
+                    description: 'What does this Super Power do?',
                     stunt:[
                         {
                             id: uuidv4(),

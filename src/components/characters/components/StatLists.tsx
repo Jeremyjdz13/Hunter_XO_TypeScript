@@ -19,10 +19,10 @@ export default function StatLists(props: StatListProps) {
 
 
 function handleDescriptionElement() {
-    const isSpecialGroup = ["backgrounds", "inventory"].includes(groupName);
+    const isDescriptionGroup = ["backgrounds", "inventory", "merits", "flaws"].includes(groupName);
    
 
-    if (isSpecialGroup) {
+    if (isDescriptionGroup) {
 
         return (
             <div style={statModalStyles.dashboard_3_grid}>

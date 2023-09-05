@@ -29,35 +29,12 @@ export default function StatModal({ groupTitle, traits, groupName, character  }:
                 >
                     Close
                 </button>
-                <div>
-                    {(groupName === "powers") ? 
-                        <CharacterStat
-                            groupTitle="Talismans"
-                            traits={character.talismans}
-                            groupName="talismans" 
-                            character={character}
-                        />
-                        :
-                        <></>
-                    }
-                    <CharacterStat
-                        groupTitle={groupTitle}
-                        groupName={groupName}
-                        traits={traits}
-                        character={character}
-                    />
-                    {(groupName === "powers") ? 
-                        <CharacterStat
-                            groupTitle="Power Stunts"
-                            traits={character.powerStunts}
-                            groupName="powerStunts" 
-                            character={character}
-                        />
-                        :
-                        <></>
-                    }
-                
-                </div>
+                <CharacterStat
+                    groupTitle={groupTitle}
+                    groupName={groupName}
+                    traits={traits}
+                    character={character}
+            />
             </dialog>
         </div>
     )

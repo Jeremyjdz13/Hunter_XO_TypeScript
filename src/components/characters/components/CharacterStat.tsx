@@ -3,12 +3,13 @@ import StatLists from "./StatLists";
 import Label from "./Label";
 import Title from "./Title";
 import { CharacterStatProps, IdNameRankData } from "../CharacterTypes";
-import { characterStyles } from "../styles/CharacterStyles";
 import { statModalStyles } from "../styles/StatModalStyles";
 
 
 function CharacterStat({ traits, groupName, character, groupTitle }: CharacterStatProps){
 
+    const isTalismans = character?.merits?.talisman
+    
     const statList = traits?.map((trait: IdNameRankData) => (
         <StatLists
             key={trait.id} 
@@ -19,10 +20,11 @@ function CharacterStat({ traits, groupName, character, groupTitle }: CharacterSt
     ))
 
     function handleNameRankDescriptionElement() {
-        const isSpecialGroup = ["backgrounds", "talismans", "inventory", "powerStunts"].includes(groupName);
-        const isSpellbookGroup = groupName === "spellbook";
-    
-        if (isSpecialGroup) {
+        const isDescriptionGroup = ["backgrounds", "merits", "inventory", "flaws"].includes(groupName);
+        const isPowersAndTalismansGroup = ["powers", "talismans"].includes(groupName);
+        const isSpellbookGroup = ["spellbook"].includes(groupName);
+
+        if (isDescriptionGroup) {
             
             return (
                 <div style={statModalStyles.dashboard_3_grid}>
@@ -31,19 +33,32 @@ function CharacterStat({ traits, groupName, character, groupTitle }: CharacterSt
                     <Label storedLabel={'Description'} />
                 </div>
             )
-
-        } else if (isSpellbookGroup) {
+        }
+        if (isSpellbookGroup){
+            return (
+                <div 
+                style={statModalStyles.dashboard_7_grid}
+                >
+                    <Label storedLabel={'Name'} />
+                    <Label storedLabel={'Rank'} />
+                    <Label storedLabel={'Mastered'} />
+                    <Label storedLabel={'Purchased'} />
+                    <Label storedLabel={'Casting'} />
+                    <Label storedLabel={'Duration'} />
+                    <Label storedLabel={'Description'} />
+                </div>
+            )
+        }
+        if (isPowersAndTalismansGroup) {
             return (
                 <div style={statModalStyles.dashboard_4_grid}>
                     <Label storedLabel={'Name'} />
+                    <Label storedLabel={'Rank'} />
                     <Label storedLabel={'Attempts'} />
-                    <Label storedLabel={'Purchased'} />
                     <Label storedLabel={'Description'} />
                 </div>
-            );
-
+            )
         }
-    
         
     }
 

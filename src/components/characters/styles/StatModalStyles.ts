@@ -4,6 +4,7 @@ interface StatModalStyles {
     container: CSSProperties;
     dashboard_3_grid: CSSProperties;
     dashboard_4_grid: CSSProperties;
+    dashboard_7_grid: CSSProperties;
     title: CSSProperties;
     label: CSSProperties;
     buttonOpen: CSSProperties;
@@ -29,6 +30,11 @@ export const statModalStyles: StatModalStyles = {
     dashboard_4_grid: {
         display: 'grid',
         gridTemplateColumns: "20% 10% 10% 60%",
+        marginBlock: '5px'
+    },
+    dashboard_7_grid: { 
+        display: 'grid',
+        gridTemplateColumns: "10% 10% 10% 10% 10% 10% 40%",
         marginBlock: '5px'
     },
     title: {

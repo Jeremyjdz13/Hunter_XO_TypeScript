@@ -34,6 +34,8 @@ export default function Character({ character } : CharacterCardProps){
     const bashing = character.bashing
     const lethal = character.lethal
     const inventory = character.inventory
+    const experience = character.experience
+    const karma = character.karma
    
 
     return (
@@ -88,10 +90,20 @@ export default function Character({ character } : CharacterCardProps){
                         character={character}
                     />
                 </div>
-                <div style={initiativeStyles.container}>
-                    
-                   <Label storedLabel='Experience'/>
-
+                <div style={initiativeStyles.container}> 
+                    <Title storedTitle='Fate Ledger'/>
+                    <CharacterStat 
+                        groupTitle=''
+                        groupName='experience'
+                        traits={experience}
+                        character={character}
+                    />
+                    <CharacterStat 
+                        groupTitle=''
+                        groupName='karma'
+                        traits={karma}
+                        character={character}
+                    />
                 </div>
             </div>
             <div style={{...characterStyles.box2, ...characterStyles.orangeBottomBorder}}>
@@ -102,20 +114,21 @@ export default function Character({ character } : CharacterCardProps){
                     character={character}
                 />
                 <div>
-
+                    <Title storedTitle='Rolls' />
                 </div>
-                <CharacterStat 
-                    groupTitle='Merits'
-                    groupName='merits'
-                    traits={merits}
+                <StatModal 
+                    groupTitle={"Spell Book"} 
+                    groupName={"spellbook"}
+                    traits={spellbook}
                     character={character}
                 />
-                <CharacterStat
-                    groupTitle='Flaws'
-                    groupName='flaws'
-                    traits={flaws}
-                    character={character} 
+                <StatModal 
+                    groupTitle={"Powers"} 
+                    groupName={"powers"}
+                    traits={powers}
+                    character={character}
                 />
+                
             </div>
             <div style={characterStyles.box3}>
                 <CharacterStat
@@ -151,22 +164,22 @@ export default function Character({ character } : CharacterCardProps){
                     character={character}
                 />
                 <StatModal 
-                    groupTitle={"Spell Book"} 
-                    groupName={"spellbook"}
-                    traits={spellbook}
-                    character={character}
-                />
-                <StatModal 
-                    groupTitle={"Powers"} 
-                    groupName={"powers"}
-                    traits={powers}
-                    character={character}
-                />
-                <StatModal 
                     groupTitle={"Inventory"} 
                     groupName={"inventory"}
                     traits={inventory}
                     character={character}
+                />
+                <StatModal 
+                    groupTitle='Merits'
+                    groupName='merits'
+                    traits={merits}
+                    character={character}
+                />
+                <StatModal
+                    groupTitle='Flaws'
+                    groupName='flaws'
+                    traits={flaws}
+                    character={character} 
                 />
             </div>           
         </div>
