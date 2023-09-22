@@ -1,15 +1,15 @@
-import { IdNameRankData } from "../CharacterTypes"
+import { StatData } from "../CharacterTypes"
 import { useRef, useState } from "react"
 import { diceModalStyles } from "../styles/DiceModalStyles"
 import EditStatModal from "./EditStatModal"
 import DiceDropDownMenu from "./DiceDropDownMenu"
-import StatLists from "../components/StatLists"
+import StatLists from "../components/Stat/StatLists"
 import { initiativeStyles } from "../styles/InitiativeStyles"
 import { characterStyles } from "../styles/CharacterStyles"
+import { useCharacter } from "../../../api/CharacterContext"
 
 type DiceModalProps = {
-    stat: IdNameRankData
-    character: CharacterData
+    stat: StatData
 }
 type D100 = {
     randomD100: number;
@@ -17,37 +17,28 @@ type D100 = {
     score: string;
 }
 
-export default function DiceModal(
-    {
-        stat,
-        character
-    } : DiceModalProps) {
+export default function DiceModal({ stat } : DiceModalProps) {
+
     const modalRef = useRef<HTMLDialogElement | null>(null)
     const [isEditOpen, setIsEditOpen] = useState(false)
     const [d100, setD100] = useState({successTotal: 0, D100Roll: 0, score: ''})
+    const { selectedCharacter } = useCharacter()
     // const [powerRank, setPowerRank] = useState('None Selected')
     // const [count, setCount] = useState(0)  
-    const combat = character?.combat
-    const physical = character?.physical
-    const professional = character?.professional
-    const mental = character?.mental
-    const baseProtonium = character?.protonium[1]
-    const spentProtonium = character?.protonium[0]
-    const protoniumGenerator = character?.merits?.filter(item => (
-        item.name.includes('Protonium Generator') || 
-        item.name.includes(' protonium generator') || 
-        item.name.includes('P G') || 
-        item.name.includes('p gen') || 
-        item.name.includes(' P Generator') || 
-        item.name.includes('p g') || 
-        item.name.includes('P Gen') ||
-        item.name.includes('Protonium')
+    const combat = selectedCharacter?.combat
+    const physical = selectedCharacter?.physical
+    const professional = selectedCharacter?.professional
+    const mental = selectedCharacter?.mental
+    const protonium = selectedCharacter?.protonium
+    const usedProtonium = selectedCharacter?.usedProtonium
+    const protoniumGenerator = selectedCharacter?.merits?.filter(item => (
+            item.protoniumGenerator
+        )
     )
-)
-
+        console.log(protoniumGenerator, "Protonium Gen")
     // console.log(baseProtonium, "protonium")
     // console.log(spentProtonium, "Spent Proton")
-    console.log(protoniumGenerator[0], "Protonium Gen")
+    // console.log(protoniumGenerator[0], "Protonium Gen")
 
 
     function handleOpenModal() {
@@ -72,7 +63,6 @@ export default function DiceModal(
     function handleRank(){
         let value = stat.rank
         let name = stat.name
-        console.log({value, name})
 
         if (value === 0){
            return "Decrepit"
@@ -321,8 +311,8 @@ export default function DiceModal(
     }
 
  
-    const totalPool = baseProtonium.rank + protoniumGenerator?.rank
-    const protoniumCount = totalPool - spentProtonium.rank 
+    const totalPool = protonium.rank + protoniumGenerator[0]?.rank
+    const protoniumCount = totalPool - usedProtonium.rank 
 
 
     function handleProtoniumGeneratorElement(): JSX.Element {
@@ -385,19 +375,17 @@ export default function DiceModal(
                 <div style={initiativeStyles.container}>
                     
                     <StatLists
-                        key={baseProtonium.id}
-                        {...baseProtonium}
-                        groupName="secondaryAttributes"
-                        character={character}
+                        key={protonium.id}
+                        {...protonium}
+                        groupName="protonium"
                     />
                     {
                         protoniumGenerator ? handleProtoniumGeneratorElement() : <></>
                     }
                     <StatLists
-                        id={spentProtonium.id}
-                        {...spentProtonium}
+                        id={usedProtonium.id}
+                        {...usedProtonium}
                         groupTitle='Protonium'
-                        character={character}
                     />
                     <div>
                         Total: <span style={initiativeStyles.result}>{protoniumCount}</span>

@@ -1,4 +1,4 @@
-import { characterStyles } from "../styles/CharacterStyles";
+import { characterStyles } from "../../styles/CharacterStyles";
 
 type TitleProp = {
     storedTitle: string;

@@ -1,14 +1,16 @@
-// import { createSchema } from "graphql-yoga";
+// import { gql } from 'apollo-server';
 
-// export const schema = createSchema({
-//     typeDefs: `
-//         type Query {
-//             hello: String
-//         }
-//     `,
-//     resolvers: {
-//         Query: {
-//             hello: () => 'world'
-//         }
-//     }
-// }) 
+// const typeDefs = gql`
+//   type User {
+//     uid: String!
+//     email: String!
+//     displayName: String
+//     # Add other user fields as needed
+//   }
+
+//   type Query {
+//     currentUser: User
+//   }
+// `;
+
+// export default typeDefs;

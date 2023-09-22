@@ -1,27 +1,32 @@
 import { useState } from "react"
-import { Character, IdNameRankData } from "../CharacterTypes"
-import CharacterStat from "../components/CharacterStat"
+import { Character, StatData } from "../CharacterTypes"
+import Stat from "../components/Stat/Stat"
 import { characterStyles } from "../styles/CharacterStyles"
+import React from "react"
 
-type CountersProps = {
-    traits: IdNameRankData[]
+type HealthProps = {
+    stat: StatData
     groupName: string
     groupTitle: string
-    character: Character
 } 
 
 export default function Health(
     {
-        traits, 
+        stat, 
         groupName,
         groupTitle, 
-        character,
-    } : CountersProps) {
+    } : HealthProps) {
 
 
-    function handleBashingCount(traits: IdNameRankData[]): JSX.Element {
-        const counts: number[] = traits.map(b => b.rank)
-        const count = Math.min(Math.max(...counts), 10)
+    function handleBashingCount(stat: StatData): JSX.Element {
+        const counts: number | undefined = stat.rank
+
+        let count = 0
+
+        if(counts) {
+           count = Math.min(Math.max(counts), 10)  
+        }
+        
         if(count >= 4 && count <= 5){
             return <span style={characterStyles.text}>Slap fighting! -1</span>
         } else if(count >= 6 && count <= 8){
@@ -36,9 +41,14 @@ export default function Health(
         }
     }
 
-    function handleLethalCount(traits: IdNameRankData[]): JSX.Element {
-        const counts: number[] = traits.map(l => l.rank)
-        const count = Math.min(Math.max(...counts), 10)
+    function handleLethalCount(stat: StatData): JSX.Element {
+        const counts: number | undefined = stat.rank
+        let count = 0
+        
+        if(counts) {
+        const count = Math.min(Math.max(counts), 10)
+        }
+
         if(count >= 3 && count <=4){
             return <span style={characterStyles.text}>That really hurt! -1</span>
         } else if(count >= 5 && count <= 6){
@@ -56,25 +66,24 @@ export default function Health(
 
     function handleBashingLethalElement() {
         if(groupTitle === 'Bashing'){
-            return handleBashingCount(traits)
+            return handleBashingCount(stat)
         } else if (groupTitle === "Lethal") {
-            return handleLethalCount(traits)
+            return handleLethalCount(stat)
         }
     }
 
     return (
-        <div>
+        <React.Fragment>
             {groupTitle === 'Bashing' || groupTitle === 'Lethal' ? (
                 <div>
-                    <CharacterStat 
-                        traits={traits}
+                    <Stat 
+                        stat={stat}
                         groupName={groupName}
                         groupTitle={groupTitle}
-                        character={character}
                     />
                 {handleBashingLethalElement()}
                 </div>
                 ) : null}
-        </div>
+        </React.Fragment>
     )
 }

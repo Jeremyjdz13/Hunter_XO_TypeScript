@@ -1,27 +1,26 @@
 import React, { useRef } from 'react'
-import { CharacterCardProps, IdNameRankData, Character } from './CharacterTypes'
+import { CharacterCardProps, StatData, Character } from './CharacterTypes'
 import { useCharacter } from '../../api/CharacterContext'
-import CharacterStat from './components/CharacterStat'
+import Stat from './components/Stat/Stat'
 import StatModal from './modals/StatModal'
 import { characterStyles } from './styles/CharacterStyles'
 import { NPCDisplay } from '../npc/NPCDisplay'
 import Initiative from './initiative/Initiative'
-import Title from './components/Title'
-import ClickableTitle from './components/ClickableLabel'
+import Title from './components/Stat/Title'
+import ClickableLabel from './components/Stat/ClickableLabel'
 import { Chat } from '../chat/Chat'
 import { Villains } from '../villian/Villains'
 import { initiativeStyles } from './styles/InitiativeStyles'
 import Health from './counters/Health'
-import Label from './components/Label'
+import Label from './components/Stat/Label'
 
 
 export default function Character({ character } : CharacterCardProps){
   
-    const id = character.id
+    const characterId = character.id
     const name = character.name
     const alias = character.alias
     const nature = character.nature
-    const coreAbilities = character.coreAbilities
     const combat = character.combat
     const physical = character.physical
     const professional = character.professional
@@ -36,33 +35,38 @@ export default function Character({ character } : CharacterCardProps){
     const inventory = character.inventory
     const experience = character.experience
     const karma = character.karma
+    const intuition = character.intuition
+    const strength = character.strength
+    const endurance = character.endurance
+    const agility = character.agility
+    const psyche = character.psyche
+    const reason = character.reason
+    const fight = character.fight
+    const talismans = character.talismans
    
 
     return (
-        <div style={characterStyles.container}>
-            <div key={id} style={characterStyles.box1}>
+        <div key={characterId} style={characterStyles.container}>
+            <div style={characterStyles.box1}>
                 <div> 
                     <Title storedTitle='Name'/>
-                    <ClickableTitle
-                        id={id} 
+                    <ClickableLabel
+                        id={characterId} 
                         name={name}
                         groupName='characterName'
-                        character={character}
                     />
                     <Title storedTitle='Alias'/>
-                    <ClickableTitle
-                        id={id} 
+                    <ClickableLabel
+                        id={characterId} 
                         name={alias}
                         groupName='characterAlias'
-                        character={character}
                         />
         
                     <Title storedTitle='Nature'/>
-                    <ClickableTitle
-                        id={id} 
+                    <ClickableLabel
+                        id={characterId} 
                         name={nature}
                         groupName='characterNature'
-                        character={character}
                     />
                 </div>
                 <Chat />
@@ -71,117 +75,136 @@ export default function Character({ character } : CharacterCardProps){
             </div>
             <div style={characterStyles.box3}>
                 <Initiative 
-                    intuition={coreAbilities[4]}
-                    mental={mental} 
+                    intuition={intuition}
+                    mental={mental}
                 />
                 <div style={initiativeStyles.container}>
                     <Health
-                        traits={bashing}
+                        stat={bashing}
                         groupName='bashingCounter'
                         groupTitle='Bashing'
-                        character={character}
                     />
                 </div>
                 <div style={initiativeStyles.container}>
                     <Health
-                        traits={lethal}
+                        stat={lethal}
                         groupName='lethalCounter'
                         groupTitle='Lethal'
-                        character={character}
                     />
                 </div>
                 <div style={initiativeStyles.container}> 
                     <Title storedTitle='Fate Ledger'/>
-                    <CharacterStat 
+                    <Stat 
                         groupTitle=''
                         groupName='experience'
-                        traits={experience}
-                        character={character}
+                        stat={experience}
                     />
-                    <CharacterStat 
+                    <Stat 
                         groupTitle=''
                         groupName='karma'
-                        traits={karma}
-                        character={character}
+                        stat={karma}
                     />
                 </div>
             </div>
-            <div style={{...characterStyles.box2, ...characterStyles.orangeBottomBorder}}>
-                <CharacterStat 
-                    groupTitle='Core Abilities'
-                    groupName='coreAbilities'
-                    traits={coreAbilities}
-                    character={character}
+            <div style={characterStyles.row}>
+                <Stat 
+                    groupTitle=''
+                    groupName='fight'
+                    stat={fight}
                 />
-                <div>
-                    <Title storedTitle='Rolls' />
-                </div>
+                <Stat 
+                    groupTitle=''
+                    groupName='strength'
+                    stat={strength}
+                /> 
+                <Stat 
+                    groupTitle=''
+                    groupName='agility'
+                    stat={agility}
+                />
+                <Stat 
+                    groupTitle=''
+                    groupName='endurance'
+                    stat={endurance}
+                />
+
+                <Stat 
+                    groupTitle=''
+                    groupName='reason'
+                    stat={reason}
+                />
+                <Stat 
+                    groupTitle=''
+                    groupName='intuition'
+                    stat={intuition}
+                />
+                <Stat 
+                    groupTitle=''
+                    groupName='psyche'
+                    stat={psyche}
+                />
+                
+            </div>
+            <div style={{...characterStyles.box2, ...characterStyles.orangeBottomBorder}}>
                 <StatModal 
                     groupTitle={"Spell Book"} 
                     groupName={"spellbook"}
-                    traits={spellbook}
-                    character={character}
+                    stat={spellbook}
                 />
                 <StatModal 
                     groupTitle={"Powers"} 
                     groupName={"powers"}
-                    traits={powers}
-                    character={character}
+                    stat={powers}
                 />
-                
-            </div>
-            <div style={characterStyles.box3}>
-                <CharacterStat
-                    groupTitle='Combat'
-                    groupName='combat'
-                    traits={combat}
-                    character={character} 
-                />
-                <CharacterStat
-                    groupTitle='Physical'
-                    groupName='physical'
-                    traits={physical}
-                    character={character} 
-                />
-                <CharacterStat
-                    groupTitle='Professional'
-                    groupName='professional'
-                    traits={professional}
-                    character={character} 
-                />
-                <CharacterStat
-                    groupTitle='Mental'
-                    groupName='mental'
-                    traits={mental}
-                    character={character} 
-                />   
-            </div>
-            <div style={characterStyles.box3}>
-                <StatModal 
+                 <StatModal 
                     groupTitle={"Backgrounds"} 
                     groupName={"backgrounds"}
-                    traits={backgrounds}
-                    character={character}
+                    stat={backgrounds}
                 />
                 <StatModal 
                     groupTitle={"Inventory"} 
                     groupName={"inventory"}
-                    traits={inventory}
-                    character={character}
+                    stat={inventory}
                 />
                 <StatModal 
                     groupTitle='Merits'
                     groupName='merits'
-                    traits={merits}
-                    character={character}
+                    stat={merits}
                 />
                 <StatModal
                     groupTitle='Flaws'
                     groupName='flaws'
-                    traits={flaws}
-                    character={character} 
+                    stat={flaws}
                 />
-            </div>           
+                <StatModal
+                    groupTitle='Talismans'
+                    groupName='talismans'
+                    stat={talismans}
+                />
+                
+            </div>
+            <div style={characterStyles.box3}>
+                <Stat
+                    groupTitle='Combat'
+                    groupName='combat'
+                    stat={combat}
+                />
+                <Stat
+                    groupTitle='Physical'
+                    groupName='physical'
+                    stat={physical}
+                />
+                <Stat
+                    groupTitle='Professional'
+                    groupName='professional'
+                    stat={professional}
+                />
+                <Stat
+                    groupTitle='Mental'
+                    groupName='mental'
+                    stat={mental}
+                />   
+            </div>      
         </div>
     )
 }

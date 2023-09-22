@@ -1,11 +1,18 @@
-// import { createServer } from 'node:http'
-// import { createYoga } from 'graphql-yoga'
-// import { schema } from './schema'
+// import { ApolloServer } from 'apollo-server';
+// import typeDefs from './schema';
+// import resolvers from './resolvers';
 
-// const yoga = createYoga({ schema })
+// const server = new ApolloServer({
+//   typeDefs,
+//   resolvers,
+//   context: ({ req }) => {
+//     // Extract the user information from the request headers or authentication token
+//     // You may have a different way of handling authentication in your app
+//     const user = getUserFromHeadersOrToken(req.headers.authorization);
+//     return { user };
+//   },
+// });
 
-// const server = createServer(yoga)
-
-// server.listen(4000, () => {
-//     console.log("Server is running on http://localhos:4000/graphql")
-// })
+// server.listen().then(({ url }) => {
+//   console.log(`🚀 Server ready at ${url}`);
+// });

@@ -52,7 +52,7 @@ export const statModalStyles: StatModalStyles = {
         color: 'hsla(30, 100%, 50%)',
         fontSize: '20px',
         width: '150px',
-        height: '150px',
+        height: '80px',
         marginInline: '3px',
     },
     buttonClose: {

@@ -4,11 +4,11 @@ import { v4 as uuidv4 } from 'uuid'
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore'
 import { app } from '../config/firebase'
 import { characterTemplate } from '../components/characters/templates/CharacterTemplate'
-import { CharacterContextProps, Character, IdNameRankData  } from '../components/characters/CharacterTypes'
+import { CharacterContextProps, Character, StatData  } from '../components/characters/CharacterTypes'
 
 const CharacterContext = React.createContext<CharacterContextProps | undefined>(undefined)
 
-export function useCharacter(): CharacterContextProps | undefined{
+export function useCharacter(): CharacterContextProps | undefined {
     return useContext(CharacterContext)
 }
 
@@ -18,7 +18,7 @@ export function CharacterProvider({ children }: { children: ReactNode}) {
     const [selectedCharacterId, setSelectedCharacterId] = useState<string | undefined>()
     const [loading, setLoading] = useState(true)
     const db = getFirestore(app)
-    const showCharacter = characters?.find(character => character.id === selectedCharacterId)
+    const selectedCharacter = characters?.find(character => character.id === selectedCharacterId)
 
    
     useEffect(() => {
@@ -80,7 +80,7 @@ export function CharacterProvider({ children }: { children: ReactNode}) {
     const characterContextValue: CharacterContextProps = {
         characters,
         loading,
-        showCharacter,
+        selectedCharacter,
         handleCharacterSelect,
         handleSelectedStat
     }

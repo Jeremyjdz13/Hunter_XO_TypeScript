@@ -1,9 +1,14 @@
 import { useRef } from "react"
-import CharacterStat from "../components/CharacterStat"
-import { CharacterStatProps } from "../CharacterTypes"
+import Stat from "../components/Stat/Stat"
 import { statModalStyles } from "../styles/StatModalStyles"
+import { StatData } from "../CharacterTypes"
 
-export default function StatModal({ groupTitle, traits, groupName, character  }: CharacterStatProps) {
+type StatModalProps = {
+    groupTitle: string
+    stat: StatData
+    groupName: string
+}
+export default function StatModal({ groupTitle, stat, groupName  }: StatModalProps) {
     const modalRef = useRef(null)
 
     function handleOpenModal() {
@@ -29,11 +34,10 @@ export default function StatModal({ groupTitle, traits, groupName, character  }:
                 >
                     Close
                 </button>
-                <CharacterStat
+                <Stat
                     groupTitle={groupTitle}
                     groupName={groupName}
-                    traits={traits}
-                    character={character}
+                    stat={stat}
             />
             </dialog>
         </div>

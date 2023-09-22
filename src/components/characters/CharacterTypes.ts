@@ -3,61 +3,92 @@ export type Character = {
     name: string
     alias: string
     nature: string
-    imageUrl: string
-    primaryAttributes: IdNameRankData[]
-    secondaryAttributes: IdNameRankData[]
-    combatSkills: IdNameRankData[]
-    physicalSkills: IdNameRankData[]
-    professionalSkills: IdNameRankData[]
-    mentalSkills: IdNameRankData[]
-    backgrounds: IdNameRankData[]
-    merits: IdNameRankData[]
-    flaws: IdNameRankData[]
-    powers: IdNameRankData[]
-    talismans: IdNameRankData[]
-    powerStunts: IdNameRankData[]
-    spellbook: IdNameRankData[]
-    protoniumCounter: IdNameRankData[]
-    bashingCounter: IdNameRankData[]
-    lethalCounter: IdNameRankData[]
-    equipmentItems: IdNameRankData[]
+    imageUrl: StatData
+    strength: StatData
+    fight: StatData
+    endurance: StatData
+    agility: StatData
+    reason: StatData
+    intuition: StatData
+    psyche: StatData
+    combatSkills: StatData[]
+    physicalSkills: StatData[]
+    professionalSkills: StatData[]
+    mentalSkills: StatData[]
+    backgrounds: StatData[]
+    merits: StatData[]
+    flaws: StatData[]
+    powers: (StatData[] & { stunt: Stunt[] })[]
+    talismans: StatData[]
+    spellbook: (StatData & { componentItem: ComponentItem[] })[]
+    protonium: StatData
+    usedProtonium: StatData
+    bashingCounter: StatData[] 
+    lethalCounter: StatData[]
+    inventory: StatData[]
 } & {
-    [key: string]: IdNameRankData
+    [key: string]: StatData
 }
 
-export type IdNameRankDataArray = IdNameRankData[]
+export type StatData = {
+    id: string
+    name: string
+    rank?: number
+    url?: string
+    description?: string
+    talisman?: boolean
+    protoniumGenerator?: boolean
+    purchased?: boolean
+    mastered?: boolean
+    attempts?: number
+    armor?: boolean
+    duration?: number
+    stunt?: Stunt[]
+    casting?: string
+    quantity?: number
+    component?: boolean
+    componentItem?: ComponentItem[]
+    spellAssignmentId?: string
+} 
 
-export type IdNameRankData = {
+export type ComponentItem = {
     id: string
     name: string
     rank: number
-} & Description & Purchased & Traits
-
-export type Description = {
     description: string
-}
-
-export type Purchased = {
-    purchased: boolean
+    armor: boolean
+    component: boolean
+    quantity: number
+    spellAssignmentId: string
 }
 export type GroupName = {
     groupName: string
+}
+
+export type Stunt = {
+    id: string
+    name: string
+    attempts: number
+    description: string
+    mastered: boolean
+    armor: boolean
+    duration: number
 }
 
 export type GroupTitle = {
     groupTitle: string
 }
 export type Traits = { 
-    traits: IdNameRankData[]
+    traits: StatData[]
 }
 
 export type CharacterContextProps = {
     characters: Character[] | undefined
-    showCharacter: Character | undefined
     loading: boolean
+    selectedCharacter: SelectedCharacter | undefined
     handleCharacterSelect: (id: string) => void
-    handleSelectedStat: (stat: IdNameRankData) => void
-} 
+    handleSelectedStat: (stat: StatData) => void
+}
 
 export type CharacterCardProps = {
     character: Character
@@ -68,20 +99,70 @@ export type CharacterButtonProps = {
     key: string
 }
 
-export type CharacterStatProps = {
-    traits: Traits
-    groupName: string
-    character: Character
-    groupTitle: string
-}
 
-export type StatListProps = {
+//Data Template for Characters
+export type CharacterTemplate = {
     id: string
     name: string
-    rank: number
-    description: string
-    purchased: boolean
-    groupName: string
-    character: Character
-    key: string
+    alias: string
+    nature: string
+    strength: StatData
+    fight: StatData
+    endurance: StatData
+    experience: StatData
+    imageURL: StatData
+    initiative: StatData
+    karma: StatData
+    lethal: StatData
+    agility: StatData
+    bashing: StatData
+    reason: StatData
+    intuition: StatData
+    psyche: StatData
+    combat: StatData[]
+    physical: StatData[]
+    professional: StatData[]
+    mental: StatData[]
+    backgrounds: StatData[]
+    merits: StatData[]
+    flaws: StatData[]
+    powers: StatData[]
+    talismans: StatData[]
+    spellbook: StatData[]
+    protonium: StatData
+    usedProtonium: StatData
+    inventory: StatData[]
+}
+
+export type SelectedCharacter = {
+    id: string
+    name: string
+    alias: string
+    nature: string
+    strength: StatData
+    fight: StatData
+    endurance: StatData
+    experience: StatData
+    imageURL: StatData
+    initiative: StatData
+    karma: StatData
+    lethal: StatData
+    agility: StatData
+    bashing: StatData
+    reason: StatData
+    intuition: StatData
+    psyche: StatData
+    combat: StatData[]
+    physical: StatData[]
+    professional: StatData[]
+    mental: StatData[]
+    backgrounds: StatData[]
+    merits: StatData[]
+    flaws: StatData[]
+    powers: StatData[]
+    talismans: StatData[]
+    spellbook: StatData[]
+    protonium: StatData
+    usedProtonium: StatData
+    inventory: StatData[]
 }

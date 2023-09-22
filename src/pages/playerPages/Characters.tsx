@@ -11,11 +11,10 @@ export function Characters(){
     const { 
         // handleCharacterAdd,  
         characters, 
-        showCharacter, 
+        selectedCharacter, 
         // selectedCharacterEdit, 
         loading 
     } = useCharacter() as CharacterContextProps
-
     return (
         <div>
             <div style={characterStyles.row}>
@@ -39,7 +38,7 @@ export function Characters(){
                     </button>
                 </div>
             </div>
-            {showCharacter && <CharacterCard character={showCharacter}/>}
+            {selectedCharacter && <CharacterCard character={selectedCharacter}/>}
             {/* {selectedCharacterEdit && <CharacterCardEdit character={selectedCharacterEdit} />} */}
         </div>
     )

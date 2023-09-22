@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Title from "../components/Title";
+import Title from "../components/Stat/Title";
 import EditStatForm from "../forms/EditStatForm";
 
 type EditStatModalProps = {

@@ -13,7 +13,7 @@ interface CharacterStyles {
     green: CSSProperties;
     orangeBottomBorder: CSSProperties;
     titles: CSSProperties;
-    clickableTitles: CSSProperties;
+    clickableLabel: CSSProperties;
     grid2: CSSProperties;
     grid3: CSSProperties;
     grid4: CSSProperties;
@@ -77,8 +77,8 @@ export const characterStyles: CharacterStyles = {
         color: "hsla(50, 66%, 80%, .8)",
         fontSize: '20px'
     },
-    clickableTitles: {
-        color: "hsla(0, 0%, 100%, 0.5)",
+    clickableLabel: {
+        color: "hsla(0, 0%, 100%, 0.8)",
         fontSize: '14px',
         cursor: 'pointer'
     },
