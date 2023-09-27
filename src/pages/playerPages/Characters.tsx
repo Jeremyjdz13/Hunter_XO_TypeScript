@@ -20,14 +20,15 @@ export function Characters(){
             <div style={characterStyles.row}>
                 <div style={characterStyles.row}> 
                     {
-                    !loading 
-                    && 
-                    characters?.map(character => {
+                    (!loading && characters) ? 
+                        characters?.map(character => {
                             return (
                                 <CharacterCardButton key={character.id}  character={character}/>    
                             )
-                        })
-                    }
+                        }) : 
+                        null
+                    } 
+                    
                 </div>
                 <div>
                     <button 

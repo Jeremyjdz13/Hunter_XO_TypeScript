@@ -3,28 +3,31 @@ export type Character = {
     name: string
     alias: string
     nature: string
-    imageUrl: StatData
     strength: StatData
     fight: StatData
     endurance: StatData
+    experience: StatData
+    imageURL: StatData
+    initiative: StatData
+    karma: StatData
+    lethal: StatData
     agility: StatData
+    bashing: StatData
     reason: StatData
     intuition: StatData
     psyche: StatData
-    combatSkills: StatData[]
-    physicalSkills: StatData[]
-    professionalSkills: StatData[]
-    mentalSkills: StatData[]
+    combat: StatData[]
+    physical: StatData[]
+    professional: StatData[]
+    mental: StatData[]
     backgrounds: StatData[]
     merits: StatData[]
     flaws: StatData[]
-    powers: (StatData[] & { stunt: Stunt[] })[]
+    powers: StatData[]
     talismans: StatData[]
-    spellbook: (StatData & { componentItem: ComponentItem[] })[]
+    spellbook: StatData[]
     protonium: StatData
     usedProtonium: StatData
-    bashingCounter: StatData[] 
-    lethalCounter: StatData[]
     inventory: StatData[]
 } & {
     [key: string]: StatData
@@ -83,12 +86,12 @@ export type Traits = {
 }
 
 export type CharacterContextProps = {
-    characters: Character[] | undefined
+    characters: Character[]
     loading: boolean
-    selectedCharacter: SelectedCharacter | undefined
+    selectedCharacter: Character | undefined
     handleCharacterSelect: (id: string) => void
     handleSelectedStat: (stat: StatData) => void
-}
+} 
 
 export type CharacterCardProps = {
     character: Character
@@ -97,72 +100,4 @@ export type CharacterCardProps = {
 export type CharacterButtonProps = {
     character: Character
     key: string
-}
-
-
-//Data Template for Characters
-export type CharacterTemplate = {
-    id: string
-    name: string
-    alias: string
-    nature: string
-    strength: StatData
-    fight: StatData
-    endurance: StatData
-    experience: StatData
-    imageURL: StatData
-    initiative: StatData
-    karma: StatData
-    lethal: StatData
-    agility: StatData
-    bashing: StatData
-    reason: StatData
-    intuition: StatData
-    psyche: StatData
-    combat: StatData[]
-    physical: StatData[]
-    professional: StatData[]
-    mental: StatData[]
-    backgrounds: StatData[]
-    merits: StatData[]
-    flaws: StatData[]
-    powers: StatData[]
-    talismans: StatData[]
-    spellbook: StatData[]
-    protonium: StatData
-    usedProtonium: StatData
-    inventory: StatData[]
-}
-
-export type SelectedCharacter = {
-    id: string
-    name: string
-    alias: string
-    nature: string
-    strength: StatData
-    fight: StatData
-    endurance: StatData
-    experience: StatData
-    imageURL: StatData
-    initiative: StatData
-    karma: StatData
-    lethal: StatData
-    agility: StatData
-    bashing: StatData
-    reason: StatData
-    intuition: StatData
-    psyche: StatData
-    combat: StatData[]
-    physical: StatData[]
-    professional: StatData[]
-    mental: StatData[]
-    backgrounds: StatData[]
-    merits: StatData[]
-    flaws: StatData[]
-    powers: StatData[]
-    talismans: StatData[]
-    spellbook: StatData[]
-    protonium: StatData
-    usedProtonium: StatData
-    inventory: StatData[]
 }

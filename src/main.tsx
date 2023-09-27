@@ -7,6 +7,7 @@ import { initFirebase } from './config/firebase'
 import { ProfileProvider } from './api/UserContext'
 import { CharacterProvider } from './api/CharacterContext'
 import './api/graphQL/server'
+import { NoteProvider } from './api/NoteContext'
 
 //Initialize Firebase
 initFirebase(), "InitFirebase"
@@ -16,9 +17,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <AuthProvider>
       <ProfileProvider>
         <CharacterProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <NoteProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </NoteProvider>
         </CharacterProvider>
       </ProfileProvider>
     </AuthProvider>

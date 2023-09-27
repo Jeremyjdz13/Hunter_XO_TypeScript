@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
-import { CharacterCardProps, StatData, Character } from './CharacterTypes'
-import { useCharacter } from '../../api/CharacterContext'
+import { CharacterCardProps, Character } from './CharacterTypes'
 import Stat from './components/Stat/Stat'
 import StatModal from './modals/StatModal'
 import { characterStyles } from './styles/CharacterStyles'
@@ -12,7 +11,6 @@ import { Chat } from '../chat/Chat'
 import { Villains } from '../villian/Villains'
 import { initiativeStyles } from './styles/InitiativeStyles'
 import Health from './counters/Health'
-import Label from './components/Stat/Label'
 
 
 export default function Character({ character } : CharacterCardProps){

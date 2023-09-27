@@ -1,12 +1,21 @@
+import { NoteData, Tag } from "../../pages/playerPages/Notes";
 import NoteForm from "./NoteForm";
 
-
-export default function NewNote() {
+type NewNoteProps = {
+    onSubmit: (data: NoteData) => void
+    onAddTag: (tag: Tag) => void
+    availableTags: Tag[]
+}
+export default function NewNote({ onSubmit, onAddTag, availableTags } : NewNoteProps) {
 
     return (
         <>
             <h1>New Note</h1>
-            <NoteForm />
+            <NoteForm 
+                onSubmit={onSubmit}
+                onAddTag={onAddTag}
+                availableTags={availableTags}
+            />
         </>
     )
 }

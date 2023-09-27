@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext, ReactNode } from 'react'
 import { useAuth } from './AuthContext'
 import { v4 as uuidv4 } from 'uuid'
-import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore'
+import { collection, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore'
 import { app } from '../config/firebase'
 import { characterTemplate } from '../components/characters/templates/CharacterTemplate'
 import { CharacterContextProps, Character, StatData  } from '../components/characters/CharacterTypes'
 
 const CharacterContext = React.createContext<CharacterContextProps | undefined>(undefined)
+
+
 
 export function useCharacter(): CharacterContextProps | undefined {
     return useContext(CharacterContext)
@@ -14,7 +16,7 @@ export function useCharacter(): CharacterContextProps | undefined {
 
 export function CharacterProvider({ children }: { children: ReactNode}) {
     const { currentUser, loading: loadingUser } = useAuth()
-    const [characters, setCharacters] = useState<Character[] | undefined>()
+    const [characters, setCharacters] = useState<Character[]>([])
     const [selectedCharacterId, setSelectedCharacterId] = useState<string | undefined>()
     const [loading, setLoading] = useState(true)
     const db = getFirestore(app)
@@ -28,7 +30,8 @@ export function CharacterProvider({ children }: { children: ReactNode}) {
 
         if(!currentUser){
             //no user signed in!
-            setCharacters(undefined);
+            setCharacters([]);
+
             setLoading(false)
             return;
         }
@@ -46,7 +49,7 @@ export function CharacterProvider({ children }: { children: ReactNode}) {
                 console.log(charactersData, "not found")
                 setDoc(doc(charactersRef), characterTemplate).then(() => {
                     console.log("Document successfully written!");
-                    setCharacters([characterTemplate]);
+                    setCharacters([characterTemplate] as Character[]);
                     console.log("Adding a character")
                 })
                     .catch((error) => 
@@ -71,7 +74,7 @@ export function CharacterProvider({ children }: { children: ReactNode}) {
         // setSelectedCharacterIdEdit(undefined)
     }
 
-    function handleSelectedStat(stat: IdNameRankData): void {
+    function handleSelectedStat(stat: StatData): void {
         // setShowModal(true)
         // setSelectedStat(stat)
         console.log(stat,"This was clicked")
