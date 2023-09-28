@@ -2,8 +2,7 @@ import { useRef, useState } from 'react'
 import { useAuth } from '../../api/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInSignUpStyles } from '../../styles/AuthStyles';
-import { useProfile } from '../../api/UserContext';
-
+import { userData } from '../../api/UserContext';
 export default function UpdateProfile() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -13,7 +12,7 @@ export default function UpdateProfile() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { profileData } = useProfile()
+    const { user } = userData()
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -38,7 +37,7 @@ export default function UpdateProfile() {
         }
 
         Promise.all(promises).then(()=> {
-            if(profileData?.gameMaster) {
+            if(user?.gameMaster) {
                 navigate("/gameMaster/npcs")
             } else {
                 navigate("/profile/characters")
@@ -51,7 +50,7 @@ export default function UpdateProfile() {
     }
 
     function handleRoute() {
-        if(profileData?.gameMaster) {
+        if(user?.gameMaster) {
             return "/gameMaster/npcs"
         } else {
             return "/profile/characters"

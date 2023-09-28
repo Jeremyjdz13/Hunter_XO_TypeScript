@@ -4,7 +4,7 @@ import CharacterCard from '../../components/characters/Character'
 // import CharacterCardEdit from '../../ProfileContainer/CharacterEdit/CharacterCardEdit'
 import CharacterCardButton from '../../components/characters/components/CharacterCardButton'
 import { characterStyles } from '../../components/characters/styles/CharacterStyles'
-import { CharacterContextProps } from '../../components/characters/CharacterTypes'
+import { CharacterContextProps } from '../../api/types/CharacterTypes'
 
 export function Characters(){
      

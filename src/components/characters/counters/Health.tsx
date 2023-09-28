@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Character, StatData } from "../CharacterTypes"
+import { Character, StatData } from "../../../api/types/CharacterTypes"
 import Stat from "../components/Stat/Stat"
 import { characterStyles } from "../styles/CharacterStyles"
 import React from "react"

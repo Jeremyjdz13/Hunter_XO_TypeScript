@@ -2,7 +2,7 @@ import { FirebaseApp, initializeApp} from "firebase/app"
 import { getAuth } from "firebase/auth"
 import { getDatabase } from "firebase/database"
 import { getFirestore } from "firebase/firestore";
-import { FirebaseConfig } from '../types/types';
+import { FirebaseConfig } from '../api/types/FirebaseTypes';
 
 let app: FirebaseApp;
 let db: ReturnType<typeof getDatabase>;

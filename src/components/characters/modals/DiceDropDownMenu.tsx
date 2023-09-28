@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IdNameRankData } from "../CharacterTypes"
+import { IdNameRankData } from "../../../api/types/CharacterTypes"
 import { dropdownMenuStyles } from "../../dropdownMenu/DropdownStyles"
 
 type DiceDropDownMenuProps = {

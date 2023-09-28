@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { CharacterCardProps, Character } from './CharacterTypes'
+import { CharacterCardProps, Character } from '../../api/types/CharacterTypes'
 import Stat from './components/Stat/Stat'
 import StatModal from './modals/StatModal'
 import { characterStyles } from './styles/CharacterStyles'

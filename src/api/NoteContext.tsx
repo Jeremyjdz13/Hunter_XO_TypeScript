@@ -4,6 +4,7 @@ import { collection, doc, getDocs, getFirestore, onSnapshot, setDoc, updateDoc }
 import { app } from '../config/firebase'
 import { RawNote, RawNoteData, Tag } from '../pages/playerPages/Notes'
 import { v4 as uuidv4 } from "uuid";
+import { query } from 'firebase/database'
 
 
 type NoteContextProps = {
@@ -28,94 +29,135 @@ export function NoteProvider({ children }: { children: ReactNode}) {
     const [notes, setNotes] = useState<RawNote[]>([])
     const [tags, setTags] = useState<Tag[]>([])
     const [loading, setLoading] = useState(true)
-
+    const notesRef = collection(db, 'users', currentUser.uid, 'notes');
+    const tagsRef = collection(db, 'users', currentUser.uid, 'tags');
+    const noteObject =  { id: uuidv4(), markdown: "Write here", tagIds: [], title: "Title Here" }
    
-
-
-    useEffect(() => {
-
-        const noteCollectionRef = useMemo(() => collection(db, 'users', currentUser?.uid, 'notes'), [db, currentUser?.uid]);
-
-        const unsubscribe = onSnapshot(noteCollectionRef, (querySnapshot) => {
-          const updatedNotes = [];
-          querySnapshot.forEach((doc) => {
-            if (doc.exists()) {
-              const data = doc.data();
-              updatedNotes.push(data);
-              console.log(data, "Data");
-            } else {
-              console.log("Document deleted");
-            }
-          });
-      
-          // Merge the updatedNotes with the existing notes
-          setNotes((prevNotes) => [...prevNotes, ...updatedNotes]);
-        });
-      
-        return () => unsubscribe();
-      }, []);
-      
-      
-
-    useEffect(() => {
-        if (loadingUser) {
-            return; // still initializing, do nothing.
+    // const noteCollectionRef = useMemo(() => collection(db, 'users', currentUser?.uid, 'notes'), [db, currentUser?.uid]);
+    // const noteRef 
+   async function getNotes() {
+        const querySnapshot = await getDocs(notesRef);
+        if(querySnapshot.empty) {
+            console.log("No matching documents")
+            setDoc(doc(notesRef, noteObject.id), noteObject)
+                .then(() => {   
+                    console.log("Document successfully written!");  
+                })
+                .catch((error) => { 
+                    console.error("Error writing document: ", error);
+                });
         }
-    
-        if (!currentUser) {
-            // no user signed in!
-            setNotes([]);
-            setTags([]);
-            setLoading(false);
+
+        querySnapshot.forEach((doc) => {
+            console.log(doc.id, " => ", doc.data());
+            const data = doc.data()
+        }
+        );
+        // console.log(querySnapshot, "Query Snapshot")
+    }
+
+
+    useEffect(() => {
+        if(loadingUser) {
             return;
         }
+
+        if(!currentUser) {
+            setNotes([])
+            setTags([])
+            setLoading(false)
+            return
+        }
+
+        getNotes()
+        console.log(getNotes(),"Get Notes")
+
+        return
+    },[currentUser, loadingUser])
+
+
+    // querySnapshot.forEach((doc) => {
+    //     console.log(doc.id, " => ", doc.data());
+    // });
+    // useEffect(() => {
+
+
+    //     const unsubscribe = onSnapshot(noteCollectionRef, (querySnapshot) => {
+    //       const updatedNotes = [];
+    //       querySnapshot.forEach((doc) => {
+    //         if (doc.exists()) {
+    //           const data = doc.data();
+    //           updatedNotes.push(data);
+    //           console.log(data, "Data");
+    //         } else {
+    //           console.log("Document deleted");
+    //         }
+    //       });
+      
+    //       // Merge the updatedNotes with the existing notes
+    //       setNotes((prevNotes) => [...prevNotes, ...updatedNotes]);
+    //     });
+      
+    //     return () => unsubscribe();
+    //   }, []);
+      
+      
+
+    // useEffect(() => {
+    //     if (loadingUser) {
+    //         return; // still initializing, do nothing.
+    //     }
     
-        // user is logged in.
-        const notesRef = collection(db, 'users', currentUser.uid, 'notes');
-        const tagsRef = collection(db, 'users', currentUser.uid, 'tags');
+    //     if (!currentUser) {
+    //         // no user signed in!
+    //         setNotes([]);
+    //         setTags([]);
+    //         setLoading(false);
+    //         return;
+    //     }
     
-        // Helper function to initialize default notes or tags
-        const initializeDefaultData = (
-            ref: string,
-            setData: string[],
-            defaultData: string[]
-        ) => {
-            getDocs(ref as any)
-                .then((querySnapshot) => {
-                    const data = querySnapshot.docs.map((doc) => doc.data());
-                    if (data.length === 0) {
-                        setData(defaultData);
-                        // Create a new document with default data
-                        setDoc(doc(ref, uuidv4()), defaultData)
-                            .then(() => {
-                                console.log("Document successfully written!");
-                            })
-                            .catch((error) => {
-                                console.log('Failed to initialize data', error);
-                            });
-                    } else {
-                        setData(data);
-                    }
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.error('Error retrieving data:', error);
-                    setLoading(false);
-                });
-        };
+    //     // user is logged in
     
-        initializeDefaultData(notesRef, setNotes, 
-            { id: uuidv4(), markdown: "Write here", tagIds: [], title: "Title Here" }
-        );
+    //     // Helper function to initialize default notes or tags
+    //     const initializeDefaultData = (
+    //         ref: string,
+    //         setData: string[],
+    //         defaultData: string[]
+    //     ) => {
+    //         getDocs(ref as any)
+    //             .then((querySnapshot) => {
+    //                 const data = querySnapshot.docs.map((doc) => doc.data());
+    //                 if (data.length === 0) {
+    //                     // Create a new document with default data
+    //                     setDoc(doc(ref, uuidv4()), defaultData)
+    //                         .then(() => {
+    //                             console.log("Document successfully written!");
+    //                         })
+    //                         .catch((error) => {
+    //                             console.log('Failed to initialize data', error);
+    //                         });
+    //                 } else {
+    //                 }
+    //                 setLoading(false);
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Error retrieving data:', error);
+    //                 setLoading(false);
+    //             });
+    //     };
     
-        initializeDefaultData(tagsRef, setTags, 
-            { id: uuidv4(), label: "NiceTag" }
-        );
+    //     initializeDefaultData(notesRef, setNotes, 
+    //         { id: uuidv4(), markdown: "Write here", tagIds: [], title: "Title Here" }
+    //     );
     
-    }, [loadingUser]);
+    //     initializeDefaultData(tagsRef, setTags, 
+    //         { id: uuidv4(), label: "NiceTag" }
+    //     );
+    
+    // }, [currentUser,loadingUser]);
     
     const notesWithTags = useMemo(() => {
-        return notes.map(note => {
+        return notes?.map(note => {
             const noteTags = note.tagIds || []
             return {
                 ...note,

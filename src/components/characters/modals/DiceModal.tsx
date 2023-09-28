@@ -1,4 +1,4 @@
-import { StatData } from "../CharacterTypes"
+import { StatData } from "../../../api/types/CharacterTypes"
 import { useRef, useState } from "react"
 import { diceModalStyles } from "../styles/DiceModalStyles"
 import EditStatModal from "./EditStatModal"

@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import Stat from "../components/Stat/Stat"
 import { statModalStyles } from "../styles/StatModalStyles"
-import { StatData } from "../CharacterTypes"
+import { StatData } from "../../../api/types/CharacterTypes"
 
 type StatModalProps = {
     groupTitle: string

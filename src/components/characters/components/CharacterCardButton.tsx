@@ -2,7 +2,7 @@ import React from 'react'
 import { useCharacter } from '../../../api/CharacterContext'
 import { characterStyles } from '../styles/CharacterStyles'
 import { characterButtonStyles } from '../styles/CharacterButtonStyles'
-import { CharacterButtonProps, CharacterContextProps } from '../CharacterTypes'
+import { CharacterButtonProps, CharacterContextProps } from '../../../api/types/CharacterTypes'
 
 export default function CharacterCardButton({ character }: CharacterButtonProps){
     const id = character.id

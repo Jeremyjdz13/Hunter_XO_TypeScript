@@ -6,13 +6,13 @@ import { Chat } from '../chat/Chat';
 import { Link } from 'react-router-dom';
 import { signInSignUpStyles } from '../../styles/AuthStyles';
 import DropdownMenu from '../dropdownMenu/DropdownMenu';
-import { useProfile } from '../../api/UserContext';
+import { userData } from '../../api/UserContext';
 
 
 export default function Header() {
 
   const { signOut, currentUser } = useAuth()
-  const { profileData } = useProfile()
+  const { user } = userData()
   const navigate = useNavigate();
   const [ error, setError ] = useState('')
 
@@ -22,11 +22,11 @@ export default function Header() {
   }[]>([])
   
   useEffect(() => {
-    if(profileData?.player) {
+    if(user?.player) {
      return setMenuItems(playerMenuItems)
     }
     setMenuItems(gameMasterMenuItems)
-  }, [profileData])
+  }, [user])
   
   const playerMenuItems = [
     {text: 'Characters', onClick: () => handleNavigation('player/characters') },

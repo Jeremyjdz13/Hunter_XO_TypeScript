@@ -3,8 +3,8 @@ import { useAuth } from './AuthContext'
 import { v4 as uuidv4 } from 'uuid'
 import { collection, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore'
 import { app } from '../config/firebase'
-import { characterTemplate } from '../components/characters/templates/CharacterTemplate'
-import { CharacterContextProps, Character, StatData  } from '../components/characters/CharacterTypes'
+import { characterTemplate } from './defaultData/DefaultDataTemplates'
+import { CharacterContextProps, Character, StatData  } from './types/CharacterTypes'
 
 const CharacterContext = React.createContext<CharacterContextProps | undefined>(undefined)
 
@@ -47,7 +47,7 @@ export function CharacterProvider({ children }: { children: ReactNode}) {
                 if(charactersData.length === 0){
                 
                 console.log(charactersData, "not found")
-                setDoc(doc(charactersRef), characterTemplate).then(() => {
+                setDoc(doc(charactersRef, characterTemplate.id), characterTemplate).then(() => {
                     console.log("Document successfully written!");
                     setCharacters([characterTemplate] as Character[]);
                     console.log("Adding a character")

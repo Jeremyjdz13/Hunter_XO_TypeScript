@@ -1,7 +1,7 @@
 import StatLists from "./StatLists";
 import Label from "./Label";
 import Title from "./Title";
-import { StatData } from "../../CharacterTypes";
+import { StatData } from "../../../../api/types/CharacterTypes";
 import { statStyles } from "./StatStyles";
 import ClickableLabel from "./ClickableLabel";
 import ClickableTitle from "./ClickableTitle";

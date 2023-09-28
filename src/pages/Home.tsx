@@ -4,34 +4,34 @@ import { GameMasterRoutes } from "../routes/GameMasterRoutes"
 import { PlayerRoutes } from "../routes/PlayerRoutes"
 import { Paragraph } from "../components/homeContent/paragraph"
 import { useAuth } from "../api/AuthContext"
-import { useProfile } from "../api/UserContext"
-import { useEffect, useMemo } from "react"
+import { userData } from "../api/UserContext"
+import { useEffect } from "react"
 
 export function Home() {
 
     const { currentUser } = useAuth()
-    const { profileData } = useProfile()
+    const { user } = userData()
     
     const navigate = useNavigate()
-    
+
     useEffect(() => {
-        if(profileData?.player) {
+        if(user?.player) {
             navigate('/player/characters')
         } 
-        if(profileData?.gameMaster) {
+        if(user?.gameMaster) {
             navigate("/gameMaster/npcs")
         }
-    }, [profileData])
+    }, [userData])
 
-    const checkCurrentUserProfile = currentUser?.email === profileData?.email
+    const checkCurrentUserProfile = currentUser?.email === user?.email
  
     function renderRoutes() {
 
-        if(checkCurrentUserProfile && profileData?.player) {
+        if(checkCurrentUserProfile && user?.player) {
             
             return <Route path="/player/*" element={<PlayerRoutes />} /> 
              
-        } else if(checkCurrentUserProfile && profileData?.gameMaster) {
+        } else if(checkCurrentUserProfile && user?.gameMaster) {
             return <Route path="/gameMaster/*" element={<GameMasterRoutes />} />
         } 
         else {

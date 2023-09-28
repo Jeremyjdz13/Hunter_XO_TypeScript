@@ -8,7 +8,7 @@ export function PlayerRoutes() {
     return (
         <Routes>  
             <Route element={<PlayerLayout />} >
-                <Route path="characters" element={<Characters />} />
+                {/* <Route path="characters" element={<Characters />} /> */}
                 <Route path="characterGen" element={<CharacterGen />} />
                 <Route path="notes/*" element={<Notes />} />
             </Route>

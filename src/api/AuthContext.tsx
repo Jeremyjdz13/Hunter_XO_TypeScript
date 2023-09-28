@@ -95,7 +95,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
  
   console.log("AuthProvider Rendered")
 
-  const value: AuthContextValue = useMemo(() => ({
+  const value: AuthContextValue = {
     currentUser,
     loading,
     signIn,
@@ -105,7 +105,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     updateEmail,
     updatePassword,
     updateDisplayName,
-  }), [currentUser, loading]);
+  }
 
   return (
       <AuthContext.Provider value={value}>

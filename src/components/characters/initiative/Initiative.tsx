@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { initiativeStyles } from '../styles/InitiativeStyles';
-import { StatData } from '../CharacterTypes';
+import { StatData } from '../../../api/types/CharacterTypes';
 
 type InitiativeProps = {
     mental: StatData

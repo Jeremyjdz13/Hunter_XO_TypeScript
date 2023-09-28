@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { SelectedCharacter, StatData } from "../../CharacterTypes"
+import { SelectedCharacter, StatData } from "../../../../api/types/CharacterTypes"
 import { characterStyles } from "../../styles/CharacterStyles"
 import { useCharacter } from "../../../../api/CharacterContext"
 import EditStatModal from "../../modals/EditStatModal"

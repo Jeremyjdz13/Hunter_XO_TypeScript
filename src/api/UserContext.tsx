@@ -26,7 +26,8 @@ type UserList = {
     player: boolean
 }
 
-interface ProfileData {
+interface UserData {
+    id: string
     gameMaster: boolean
     editor: boolean
     player: boolean
@@ -35,8 +36,8 @@ interface ProfileData {
     emailVerified: boolean
 } 
 
-interface ProfileContextProps {
-    profileData: ProfileData | undefined
+interface UserContextProps {
+    user: UserData | undefined
     userList: UserList[]
     loading: boolean
 }
@@ -48,25 +49,23 @@ interface ProfileContextProps {
     }[];
   }[]
 
-const ProfileContext = createContext<ProfileContextProps>({
-    profileData: undefined,
+const UserContext = createContext<UserContextProps>({
+    user: undefined,
     userList: [],
     loading: true
 })
 
 
-export default ProfileContext;
-
-export function useProfile() {
-    return useContext(ProfileContext)
+export function userData() {
+    return useContext(UserContext)
 }
 
-export function ProfileProvider({ children }: { children: ReactNode }) {
+export function UserProvider({ children }: { children: ReactNode }) {
 
     const { currentUser, loading: loadingUser } = useAuth()
 
     const [loading, setLoading] = useState(true)
-    const [profileData, setProfileData] = useState<ProfileData | undefined>()
+    const [user, setUser] = useState<UserData | undefined>()
     const [userList, setUserList] = useState<UserList[]>([])
     const db = getFirestore(app)
 
@@ -78,7 +77,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
         if (!currentUser) {
             // no user signed in!
             console.log('No user signed in!');
-            setProfileData(undefined);
+            setUser(undefined);
             setLoading(false);
             return;
           }
@@ -91,6 +90,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
             // didn't find a profile for this user
             console.log(docSnapshot, "not found")
             setDoc(profileDoc, {
+              id: currentUser.uid,
               gameMaster: false,
               editor: false,
               player: true,
@@ -103,6 +103,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
           } else {
             // Check to see currentUser.profile match displayName in database if not update attribute.
             const data = docSnapshot.data() as {
+              id: string;
               gameMaster: boolean;
               editor: boolean;
               player: boolean;
@@ -117,6 +118,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   
             if (!displayNameCheck) {
               setDoc(profileDoc, {
+                id: currentUser.uid,
                 gameMaster: gameMaster,
                 editor: editor,
                 player: player,
@@ -128,7 +130,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
               );
             } else {
               console.log('Setting Profile');
-              setProfileData(data);
+              setUser(data);
               setLoading(false);
             }
           }
@@ -159,11 +161,13 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   }, [currentUser, db]);
   
   
-  const value: ProfileContextProps = {
-    profileData,
+  const value: UserContextProps = {
+    user,
     userList,
     loading,
   };
 
-  return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>;
+  return <UserContext.Provider value={value}>
+          {children}
+        </UserContext.Provider>;
 }

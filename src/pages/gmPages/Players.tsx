@@ -1,9 +1,9 @@
-import { useProfile } from "../../api/UserContext"
 import { UserCard } from "../../components/users/userCard"
 import { userCardStyles } from "../../styles/userCardStyles"
+import { userData } from "../../api/UserContext"
 
 export function Players() {
-    const { userList } = useProfile()
+    const { userList } = userData()
     console.log(userList, "UserList")
 
     return (
